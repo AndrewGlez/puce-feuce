@@ -1,0 +1,34 @@
+//CREAR CONTENEDOR CON MONGODB DE IMAGEN
+docker run -d --name mongoDB -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=password mongo:latest 
+
+//ENTRAR AL CONTENEDOR
+mongosh -u admin -p password
+
+use feuce;
+
+db.createCollection("Usuario");
+db.createCollection("Eventos");
+db.createCollection("Archivo");
+
+
+//ejemplo de insercion
+db.Usuario.insertOne({
+  correo: "ejemplo@correo.com",
+  contraseña: "claveSegura123"
+});
+
+
+db.Eventos.insertOne({
+  titulo: "Taller de Tecnología",
+  descripcion: "Evento sobre innovación tecnológica",
+  fecha_inicio: new Date("2025-07-01"),
+  tipo_evento: "Taller",
+  enlace: "https://evento.com/taller"
+});
+
+db.Archivo.insertOne({
+  titulo: "Informe Final",
+  descripcion: "Documento con el resumen del proyecto",
+  archivo_pdf: new BinData(0, ""),  // Aquí iría el PDF en base64 o binario
+  tipo_archivo: "pdf"
+});
