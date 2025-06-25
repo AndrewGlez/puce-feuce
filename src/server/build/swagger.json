@@ -7,66 +7,141 @@
 		"requestBodies": {},
 		"responses": {},
 		"schemas": {
-			"User": {
+			"Usuario": {
 				"properties": {
 					"id": {
 						"type": "number",
 						"format": "double"
 					},
-					"email": {
+					"correo": {
 						"type": "string"
 					},
-					"name": {
+					"contraseña": {
 						"type": "string"
-					},
-					"status": {
-						"type": "string",
-						"enum": [
-							"Happy",
-							"Sad"
-						]
-					},
-					"phoneNumbers": {
-						"items": {
-							"type": "string"
-						},
-						"type": "array"
 					}
 				},
 				"required": [
 					"id",
-					"email",
-					"name",
-					"phoneNumbers"
+					"correo",
+					"contraseña"
 				],
 				"type": "object",
 				"additionalProperties": false
 			},
-			"Pick_User.email-or-name-or-phoneNumbers_": {
+			"ValidateErrorJSON": {
 				"properties": {
-					"email": {
-						"type": "string"
+					"message": {
+						"type": "string",
+						"enum": [
+							"Validation failed"
+						],
+						"nullable": false
 					},
-					"name": {
-						"type": "string"
-					},
-					"phoneNumbers": {
-						"items": {
-							"type": "string"
-						},
-						"type": "array"
+					"details": {
+						"properties": {},
+						"additionalProperties": {},
+						"type": "object"
 					}
 				},
 				"required": [
-					"email",
-					"name",
-					"phoneNumbers"
+					"message",
+					"details"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Pick_Usuario.Exclude_keyofUsuario.id__": {
+				"properties": {
+					"correo": {
+						"type": "string"
+					},
+					"contraseña": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"correo",
+					"contraseña"
 				],
 				"type": "object",
 				"description": "From T, pick a set of properties whose keys are in the union K"
 			},
-			"UserCreationParams": {
-				"$ref": "#/components/schemas/Pick_User.email-or-name-or-phoneNumbers_"
+			"Omit_Usuario.id_": {
+				"$ref": "#/components/schemas/Pick_Usuario.Exclude_keyofUsuario.id__",
+				"description": "Construct a type with the properties of T except for those in type K."
+			},
+			"UsuarioCreationParams": {
+				"$ref": "#/components/schemas/Omit_Usuario.id_"
+			},
+			"Eventos": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"titulo": {
+						"type": "string"
+					},
+					"descripcion": {
+						"type": "string"
+					},
+					"fecha_inicio": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"tipo_evento": {
+						"type": "string"
+					},
+					"enlace": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"id",
+					"titulo",
+					"descripcion",
+					"fecha_inicio",
+					"tipo_evento",
+					"enlace"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Pick_Eventos.Exclude_keyofEventos.id__": {
+				"properties": {
+					"titulo": {
+						"type": "string"
+					},
+					"descripcion": {
+						"type": "string"
+					},
+					"fecha_inicio": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"tipo_evento": {
+						"type": "string"
+					},
+					"enlace": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"titulo",
+					"descripcion",
+					"fecha_inicio",
+					"tipo_evento",
+					"enlace"
+				],
+				"type": "object",
+				"description": "From T, pick a set of properties whose keys are in the union K"
+			},
+			"Omit_Eventos.id_": {
+				"$ref": "#/components/schemas/Pick_Eventos.Exclude_keyofEventos.id__",
+				"description": "Construct a type with the properties of T except for those in type K."
+			},
+			"EventoCreationParams": {
+				"$ref": "#/components/schemas/Omit_Eventos.id_"
 			}
 		},
 		"securitySchemes": {}
@@ -77,16 +152,101 @@
 		"contact": {}
 	},
 	"paths": {
-		"/users/{userId}": {
+		"/usuarios/{usuarioId}": {
 			"get": {
-				"operationId": "GetUser",
+				"operationId": "GetUsuario",
 				"responses": {
 					"200": {
 						"description": "Ok",
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/User"
+									"$ref": "#/components/schemas/Usuario"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Validation failed",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ValidateErrorJSON"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Usuario not found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Usuario"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Usuarios"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "usuarioId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "correo",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/usuarios": {
+			"post": {
+				"operationId": "CreateUsuario",
+				"responses": {
+					"201": {
+						"description": "Created"
+					}
+				},
+				"tags": [
+					"Usuarios"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UsuarioCreationParams"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/eventos/{eventoId}": {
+			"get": {
+				"operationId": "GetEvento",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Eventos"
 								}
 							}
 						}
@@ -96,7 +256,7 @@
 				"parameters": [
 					{
 						"in": "path",
-						"name": "userId",
+						"name": "eventoId",
 						"required": true,
 						"schema": {
 							"format": "double",
@@ -105,7 +265,7 @@
 					},
 					{
 						"in": "query",
-						"name": "name",
+						"name": "titulo",
 						"required": false,
 						"schema": {
 							"type": "string"
@@ -114,9 +274,9 @@
 				]
 			}
 		},
-		"/users": {
+		"/eventos": {
 			"post": {
-				"operationId": "CreateUser",
+				"operationId": "CreateEvento",
 				"responses": {
 					"201": {
 						"description": "Created"
@@ -129,7 +289,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/UserCreationParams"
+								"$ref": "#/components/schemas/EventoCreationParams"
 							}
 						}
 					}

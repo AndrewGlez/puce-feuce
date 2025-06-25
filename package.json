@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:server": "tsoa spec-and-routes && bun run --watch src/server/index.ts",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
@@ -15,9 +16,9 @@
     "@types/node": "^24.0.4",
     "concurrently": "^9.1.2",
     "express": "^5.1.0",
+    "mongoose": "^8.16.0",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "reflect-metadata": "^0.2.2"
+    "react-dom": "^19.1.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",

@@ -5,17 +5,14 @@ import {
   Path,
   Post,
   Query,
-  Response,
   Route,
   SuccessResponse,
 } from "tsoa";
 import type { Eventos } from "../models/Eventos";
-import { EventosService, type EventoCreationParams } from "../service/EventosService";
-
-interface ValidateErrorJSON {
-  message: "Validation failed";
-  details: { [name: string]: unknown };
-}
+import {
+  EventosService,
+  type EventoCreationParams,
+} from "../service/EventosService";
 
 @Route("eventos")
 export class EventosController extends Controller {

@@ -4,7 +4,9 @@
 import type { TsoaRoute } from '@tsoa/runtime';
 import {  fetchMiddlewares, ExpressTemplateService } from '@tsoa/runtime';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-import { UsersController } from '../controllers/UsuarioController';
+import { UsuariosController } from './../controllers/UsuarioController';
+// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+import { EventosController } from './../controllers/EventosController';
 import type { Request as ExRequest, Response as ExResponse, RequestHandler, Router } from 'express';
 
 
@@ -12,26 +14,66 @@ import type { Request as ExRequest, Response as ExResponse, RequestHandler, Rout
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
 const models: TsoaRoute.Models = {
-    "User": {
+    "Usuario": {
         "dataType": "refObject",
         "properties": {
             "id": {"dataType":"double","required":true},
-            "email": {"dataType":"string","required":true},
-            "name": {"dataType":"string","required":true},
-            "status": {"dataType":"union","subSchemas":[{"dataType":"enum","enums":["Happy"]},{"dataType":"enum","enums":["Sad"]}]},
-            "phoneNumbers": {"dataType":"array","array":{"dataType":"string"},"required":true},
+            "correo": {"dataType":"string","required":true},
+            "contraseña": {"dataType":"string","required":true},
         },
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "Pick_User.email-or-name-or-phoneNumbers_": {
-        "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"email":{"dataType":"string","required":true},"name":{"dataType":"string","required":true},"phoneNumbers":{"dataType":"array","array":{"dataType":"string"},"required":true}},"validators":{}},
+    "ValidateErrorJSON": {
+        "dataType": "refObject",
+        "properties": {
+            "message": {"dataType":"enum","enums":["Validation failed"],"required":true},
+            "details": {"dataType":"nestedObjectLiteral","nestedProperties":{},"additionalProperties":{"dataType":"any"},"required":true},
+        },
+        "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "UserCreationParams": {
+    "Pick_Usuario.Exclude_keyofUsuario.id__": {
         "dataType": "refAlias",
-        "type": {"ref":"Pick_User.email-or-name-or-phoneNumbers_","validators":{}},
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"correo":{"dataType":"string","required":true},"contraseña":{"dataType":"string","required":true}},"validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "Omit_Usuario.id_": {
+        "dataType": "refAlias",
+        "type": {"ref":"Pick_Usuario.Exclude_keyofUsuario.id__","validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "UsuarioCreationParams": {
+        "dataType": "refAlias",
+        "type": {"ref":"Omit_Usuario.id_","validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "Eventos": {
+        "dataType": "refObject",
+        "properties": {
+            "id": {"dataType":"double","required":true},
+            "titulo": {"dataType":"string","required":true},
+            "descripcion": {"dataType":"string","required":true},
+            "fecha_inicio": {"dataType":"datetime","required":true},
+            "tipo_evento": {"dataType":"string","required":true},
+            "enlace": {"dataType":"string","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "Pick_Eventos.Exclude_keyofEventos.id__": {
+        "dataType": "refAlias",
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"titulo":{"dataType":"string","required":true},"descripcion":{"dataType":"string","required":true},"fecha_inicio":{"dataType":"datetime","required":true},"tipo_evento":{"dataType":"string","required":true},"enlace":{"dataType":"string","required":true}},"validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "Omit_Eventos.id_": {
+        "dataType": "refAlias",
+        "type": {"ref":"Pick_Eventos.Exclude_keyofEventos.id__","validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "EventoCreationParams": {
+        "dataType": "refAlias",
+        "type": {"ref":"Omit_Eventos.id_","validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 };
@@ -51,26 +93,26 @@ export function RegisterRoutes(app: Router) {
 
 
     
-        const argsUsersController_getUser: Record<string, TsoaRoute.ParameterSchema> = {
-                userId: {"in":"path","name":"userId","required":true,"dataType":"double"},
-                name: {"in":"query","name":"name","dataType":"string"},
+        const argsUsuariosController_getUsuario: Record<string, TsoaRoute.ParameterSchema> = {
+                usuarioId: {"in":"path","name":"usuarioId","required":true,"dataType":"double"},
+                correo: {"in":"query","name":"correo","dataType":"string"},
         };
-        app.get('/users/:userId',
-            ...(fetchMiddlewares<RequestHandler>(UsersController)),
-            ...(fetchMiddlewares<RequestHandler>(UsersController.prototype.getUser)),
+        app.get('/usuarios/:usuarioId',
+            ...(fetchMiddlewares<RequestHandler>(UsuariosController)),
+            ...(fetchMiddlewares<RequestHandler>(UsuariosController.prototype.getUsuario)),
 
-            async function UsersController_getUser(request: ExRequest, response: ExResponse, next: any) {
+            async function UsuariosController_getUsuario(request: ExRequest, response: ExResponse, next: any) {
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
             let validatedArgs: any[] = [];
             try {
-                validatedArgs = templateService.getValidatedArgs({ args: argsUsersController_getUser, request, response });
+                validatedArgs = templateService.getValidatedArgs({ args: argsUsuariosController_getUsuario, request, response });
 
-                const controller = new UsersController();
+                const controller = new UsuariosController();
 
               await templateService.apiHandler({
-                methodName: 'getUser',
+                methodName: 'getUsuario',
                 controller,
                 response,
                 next,
@@ -82,25 +124,86 @@ export function RegisterRoutes(app: Router) {
             }
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        const argsUsersController_createUser: Record<string, TsoaRoute.ParameterSchema> = {
-                requestBody: {"in":"body","name":"requestBody","required":true,"ref":"UserCreationParams"},
+        const argsUsuariosController_createUsuario: Record<string, TsoaRoute.ParameterSchema> = {
+                requestBody: {"in":"body","name":"requestBody","required":true,"ref":"UsuarioCreationParams"},
         };
-        app.post('/users',
-            ...(fetchMiddlewares<RequestHandler>(UsersController)),
-            ...(fetchMiddlewares<RequestHandler>(UsersController.prototype.createUser)),
+        app.post('/usuarios',
+            ...(fetchMiddlewares<RequestHandler>(UsuariosController)),
+            ...(fetchMiddlewares<RequestHandler>(UsuariosController.prototype.createUsuario)),
 
-            async function UsersController_createUser(request: ExRequest, response: ExResponse, next: any) {
+            async function UsuariosController_createUsuario(request: ExRequest, response: ExResponse, next: any) {
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
             let validatedArgs: any[] = [];
             try {
-                validatedArgs = templateService.getValidatedArgs({ args: argsUsersController_createUser, request, response });
+                validatedArgs = templateService.getValidatedArgs({ args: argsUsuariosController_createUsuario, request, response });
 
-                const controller = new UsersController();
+                const controller = new UsuariosController();
 
               await templateService.apiHandler({
-                methodName: 'createUser',
+                methodName: 'createUsuario',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: 201,
+              });
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        const argsEventosController_getEvento: Record<string, TsoaRoute.ParameterSchema> = {
+                eventoId: {"in":"path","name":"eventoId","required":true,"dataType":"double"},
+                titulo: {"in":"query","name":"titulo","dataType":"string"},
+        };
+        app.get('/eventos/:eventoId',
+            ...(fetchMiddlewares<RequestHandler>(EventosController)),
+            ...(fetchMiddlewares<RequestHandler>(EventosController.prototype.getEvento)),
+
+            async function EventosController_getEvento(request: ExRequest, response: ExResponse, next: any) {
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = templateService.getValidatedArgs({ args: argsEventosController_getEvento, request, response });
+
+                const controller = new EventosController();
+
+              await templateService.apiHandler({
+                methodName: 'getEvento',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: undefined,
+              });
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        const argsEventosController_createEvento: Record<string, TsoaRoute.ParameterSchema> = {
+                requestBody: {"in":"body","name":"requestBody","required":true,"ref":"EventoCreationParams"},
+        };
+        app.post('/eventos',
+            ...(fetchMiddlewares<RequestHandler>(EventosController)),
+            ...(fetchMiddlewares<RequestHandler>(EventosController.prototype.createEvento)),
+
+            async function EventosController_createEvento(request: ExRequest, response: ExResponse, next: any) {
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = templateService.getValidatedArgs({ args: argsEventosController_createEvento, request, response });
+
+                const controller = new EventosController();
+
+              await templateService.apiHandler({
+                methodName: 'createEvento',
                 controller,
                 response,
                 next,
