@@ -8,18 +8,24 @@ import {
   Response,
   Route,
   SuccessResponse,
+  Tags,
 } from "tsoa";
 import type { Usuario } from "../models/Usuario";
-import { UsuariosService, type UsuarioCreationParams } from "../service/UsuarioService";
+import {
+  UsuariosService,
+  type UsuarioCreationParams,
+} from "../service/UsuarioService";
 
 interface ValidateErrorJSON {
   message: "Validation failed";
   details: { [name: string]: unknown };
 }
-
+@Tags("Usuarios")
 @Route("usuarios")
 export class UsuariosController extends Controller {
   @Get("{usuarioId}")
+  @Response<ValidateErrorJSON>(400, "Validation failed")
+  @Response<Usuario>(404, "Usuario not found")
   public async getUsuario(
     @Path() usuarioId: number,
     @Query() correo?: string
