@@ -7,21 +7,30 @@
 		"requestBodies": {},
 		"responses": {},
 		"schemas": {
+			"mongoose.Types.ObjectId": {
+				"type": "string"
+			},
 			"Usuario": {
 				"properties": {
-					"id": {
-						"type": "number",
-						"format": "double"
+					"_id": {
+						"$ref": "#/components/schemas/mongoose.Types.ObjectId"
 					},
 					"correo": {
 						"type": "string"
 					},
 					"contraseña": {
 						"type": "string"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
 					}
 				},
 				"required": [
-					"id",
 					"correo",
 					"contraseña"
 				],
@@ -50,7 +59,7 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"Pick_Usuario.Exclude_keyofUsuario.id__": {
+			"Pick_Usuario.Exclude_keyofUsuario._id-or-createdAt-or-updatedAt__": {
 				"properties": {
 					"correo": {
 						"type": "string"
@@ -66,18 +75,29 @@
 				"type": "object",
 				"description": "From T, pick a set of properties whose keys are in the union K"
 			},
-			"Omit_Usuario.id_": {
-				"$ref": "#/components/schemas/Pick_Usuario.Exclude_keyofUsuario.id__",
+			"Omit_Usuario._id-or-createdAt-or-updatedAt_": {
+				"$ref": "#/components/schemas/Pick_Usuario.Exclude_keyofUsuario._id-or-createdAt-or-updatedAt__",
 				"description": "Construct a type with the properties of T except for those in type K."
 			},
 			"UsuarioCreationParams": {
-				"$ref": "#/components/schemas/Omit_Usuario.id_"
+				"$ref": "#/components/schemas/Omit_Usuario._id-or-createdAt-or-updatedAt_"
+			},
+			"Partial_UsuarioCreationParams_": {
+				"properties": {
+					"correo": {
+						"type": "string"
+					},
+					"contraseña": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"description": "Make all properties in T optional"
 			},
 			"Eventos": {
 				"properties": {
-					"id": {
-						"type": "number",
-						"format": "double"
+					"_id": {
+						"$ref": "#/components/schemas/mongoose.Types.ObjectId"
 					},
 					"titulo": {
 						"type": "string"
@@ -89,25 +109,57 @@
 						"type": "string",
 						"format": "date-time"
 					},
+					"fecha_fin": {
+						"type": "string",
+						"format": "date-time"
+					},
 					"tipo_evento": {
 						"type": "string"
 					},
 					"enlace": {
 						"type": "string"
+					},
+					"ubicacion": {
+						"type": "string"
+					},
+					"organizador": {
+						"$ref": "#/components/schemas/mongoose.Types.ObjectId"
+					},
+					"participantes": {
+						"items": {
+							"$ref": "#/components/schemas/mongoose.Types.ObjectId"
+						},
+						"type": "array"
+					},
+					"estado": {
+						"type": "string",
+						"enum": [
+							"activo",
+							"cancelado",
+							"finalizado"
+						]
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
 					}
 				},
 				"required": [
-					"id",
 					"titulo",
 					"descripcion",
 					"fecha_inicio",
 					"tipo_evento",
-					"enlace"
+					"enlace",
+					"estado"
 				],
 				"type": "object",
 				"additionalProperties": false
 			},
-			"Pick_Eventos.Exclude_keyofEventos.id__": {
+			"Pick_Eventos.Exclude_keyofEventos._id-or-createdAt-or-updatedAt__": {
 				"properties": {
 					"titulo": {
 						"type": "string"
@@ -119,11 +171,35 @@
 						"type": "string",
 						"format": "date-time"
 					},
+					"fecha_fin": {
+						"type": "string",
+						"format": "date-time"
+					},
 					"tipo_evento": {
 						"type": "string"
 					},
 					"enlace": {
 						"type": "string"
+					},
+					"ubicacion": {
+						"type": "string"
+					},
+					"organizador": {
+						"$ref": "#/components/schemas/mongoose.Types.ObjectId"
+					},
+					"participantes": {
+						"items": {
+							"$ref": "#/components/schemas/mongoose.Types.ObjectId"
+						},
+						"type": "array"
+					},
+					"estado": {
+						"type": "string",
+						"enum": [
+							"activo",
+							"cancelado",
+							"finalizado"
+						]
 					}
 				},
 				"required": [
@@ -131,17 +207,64 @@
 					"descripcion",
 					"fecha_inicio",
 					"tipo_evento",
-					"enlace"
+					"enlace",
+					"estado"
 				],
 				"type": "object",
 				"description": "From T, pick a set of properties whose keys are in the union K"
 			},
-			"Omit_Eventos.id_": {
-				"$ref": "#/components/schemas/Pick_Eventos.Exclude_keyofEventos.id__",
+			"Omit_Eventos._id-or-createdAt-or-updatedAt_": {
+				"$ref": "#/components/schemas/Pick_Eventos.Exclude_keyofEventos._id-or-createdAt-or-updatedAt__",
 				"description": "Construct a type with the properties of T except for those in type K."
 			},
 			"EventoCreationParams": {
-				"$ref": "#/components/schemas/Omit_Eventos.id_"
+				"$ref": "#/components/schemas/Omit_Eventos._id-or-createdAt-or-updatedAt_"
+			},
+			"Partial_EventoCreationParams_": {
+				"properties": {
+					"titulo": {
+						"type": "string"
+					},
+					"descripcion": {
+						"type": "string"
+					},
+					"fecha_inicio": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"fecha_fin": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"tipo_evento": {
+						"type": "string"
+					},
+					"enlace": {
+						"type": "string"
+					},
+					"ubicacion": {
+						"type": "string"
+					},
+					"organizador": {
+						"$ref": "#/components/schemas/mongoose.Types.ObjectId"
+					},
+					"participantes": {
+						"items": {
+							"$ref": "#/components/schemas/mongoose.Types.ObjectId"
+						},
+						"type": "array"
+					},
+					"estado": {
+						"type": "string",
+						"enum": [
+							"activo",
+							"cancelado",
+							"finalizado"
+						]
+					}
+				},
+				"type": "object",
+				"description": "Make all properties in T optional"
 			}
 		},
 		"securitySchemes": {}
@@ -161,7 +284,12 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/Usuario"
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/Usuario"
+										}
+									],
+									"nullable": true
 								}
 							}
 						}
@@ -177,14 +305,7 @@
 						}
 					},
 					"404": {
-						"description": "Usuario not found",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/Usuario"
-								}
-							}
-						}
+						"description": "Usuario not found"
 					}
 				},
 				"tags": [
@@ -197,8 +318,7 @@
 						"name": "usuarioId",
 						"required": true,
 						"schema": {
-							"format": "double",
-							"type": "number"
+							"type": "string"
 						}
 					},
 					{
@@ -210,14 +330,171 @@
 						}
 					}
 				]
+			},
+			"put": {
+				"operationId": "UpdateUsuario",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/Usuario"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Validation failed",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ValidateErrorJSON"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Usuario not found"
+					}
+				},
+				"tags": [
+					"Usuarios"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "usuarioId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Partial_UsuarioCreationParams_"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "DeleteUsuario",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"success": {
+											"type": "boolean"
+										}
+									},
+									"required": [
+										"success"
+									],
+									"type": "object"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Validation failed",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ValidateErrorJSON"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Usuario not found"
+					}
+				},
+				"tags": [
+					"Usuarios"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "usuarioId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
 			}
 		},
 		"/usuarios": {
+			"get": {
+				"operationId": "GetUsuarios",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Usuario"
+									},
+									"type": "array"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Validation failed",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ValidateErrorJSON"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Usuarios"
+				],
+				"security": [],
+				"parameters": []
+			},
 			"post": {
 				"operationId": "CreateUsuario",
 				"responses": {
 					"201": {
-						"description": "Created"
+						"description": "Created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Usuario"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Validation failed",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ValidateErrorJSON"
+								}
+							}
+						}
 					}
 				},
 				"tags": [
@@ -246,12 +523,33 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/Eventos"
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/Eventos"
+										}
+									],
+									"nullable": true
 								}
 							}
 						}
+					},
+					"400": {
+						"description": "Validation failed",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ValidateErrorJSON"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Evento not found"
 					}
 				},
+				"tags": [
+					"Eventos"
+				],
 				"security": [],
 				"parameters": [
 					{
@@ -259,8 +557,7 @@
 						"name": "eventoId",
 						"required": true,
 						"schema": {
-							"format": "double",
-							"type": "number"
+							"type": "string"
 						}
 					},
 					{
@@ -272,16 +569,209 @@
 						}
 					}
 				]
+			},
+			"put": {
+				"operationId": "UpdateEvento",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/Eventos"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Validation failed",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ValidateErrorJSON"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Evento not found"
+					}
+				},
+				"tags": [
+					"Eventos"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "eventoId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Partial_EventoCreationParams_"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "DeleteEvento",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"success": {
+											"type": "boolean"
+										}
+									},
+									"required": [
+										"success"
+									],
+									"type": "object"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Validation failed",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ValidateErrorJSON"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Evento not found"
+					}
+				},
+				"tags": [
+					"Eventos"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "eventoId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
 			}
 		},
 		"/eventos": {
+			"get": {
+				"operationId": "GetEventos",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Eventos"
+									},
+									"type": "array"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Validation failed",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ValidateErrorJSON"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Eventos"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "tipo_evento",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "estado",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "fecha_desde",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "fecha_hasta",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
 			"post": {
 				"operationId": "CreateEvento",
 				"responses": {
 					"201": {
-						"description": "Created"
+						"description": "Created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Eventos"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Validation failed",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ValidateErrorJSON"
+								}
+							}
+						}
 					}
 				},
+				"tags": [
+					"Eventos"
+				],
 				"security": [],
 				"parameters": [],
 				"requestBody": {
@@ -294,6 +784,118 @@
 						}
 					}
 				}
+			}
+		},
+		"/eventos/{eventoId}/participantes/{participanteId}": {
+			"post": {
+				"operationId": "AddParticipante",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/Eventos"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Validation failed",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ValidateErrorJSON"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Evento or participant not found"
+					}
+				},
+				"tags": [
+					"Eventos"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "eventoId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "participanteId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"delete": {
+				"operationId": "RemoveParticipante",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/Eventos"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Validation failed",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ValidateErrorJSON"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Evento or participant not found"
+					}
+				},
+				"tags": [
+					"Eventos"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "eventoId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "participanteId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
 			}
 		}
 	},

@@ -13,10 +13,13 @@
   },
   "dependencies": {
     "@types/express": "^5.0.3",
+    "@types/morgan": "^1.9.10",
     "@types/node": "^24.0.4",
     "concurrently": "^9.1.2",
+    "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "mongoose": "^8.16.0",
+    "morgan": "^1.10.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
