@@ -1,7 +1,6 @@
 // Modelo del Usuario. (Hola Elvis)
 
 import mongoose from "mongoose";
-import bcrypt from "bcrypt";
 
 export interface Usuario {
   _id?: mongoose.Types.ObjectId;
@@ -34,20 +33,6 @@ const usuarioSchema = new mongoose.Schema<Usuario>(
     collection: "usuarios",
   }
 );
-
-// Método para encriptar la contraseña antes de guardar el usuario
-usuarioSchema.pre("save", async function (next) {
-  // Si la contraseña no ha sido modificada, no hacer nada
-  if (!this.isModified("contraseña")) return next();
-
-  try {
-    const salt = await bcrypt.genSalt(12);
-    this.contraseña = await bcrypt.hash(this.contraseña, salt);
-    next();
-  } catch (error) {
-    next(error as Error);
-  }
-});
 
 // Agregar un índice único para el correo electrónico
 usuarioSchema.index({ correo: 1 });
