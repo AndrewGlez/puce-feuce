@@ -3,7 +3,7 @@ import Navbar from "./Navbar";
 
 export default function Header({ style }: { style?: string }) {
   return (
-    <div className={`flex ${style}`}>
+    <header className={`${style}`}>
       <div className="flex text-white font-geologica justify-between items-center w-full h-full px-3 sm:px-4 md:px-6 lg:px-8 xl:px-16 relative">
         <div className="flex justify-center items-center space-x-1 sm:space-x-2">
           <img
@@ -20,6 +20,6 @@ export default function Header({ style }: { style?: string }) {
           <Navbar />
         </div>
       </div>
-    </div>
+    </header>
   );
 }
