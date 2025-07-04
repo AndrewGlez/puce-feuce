@@ -7,7 +7,6 @@ Un sistema completo de gestión de eventos desarrollado con React, TypeScript, N
 - **Frontend**: React 19 + TypeScript + Vite
 - **Backend**: Node.js + Express + TypeScript
 - **Base de Datos**: MongoDB con Mongoose
-- **Autenticación**: Sistema de usuarios con hash de contraseñas usando bcrypt
 - **API RESTful**: Documentada automáticamente con TSOA y Swagger
 - **Gestión de Eventos**: CRUD completo para eventos con estados
 - **Hot Reload**: Desarrollo en tiempo real tanto para frontend como backend
@@ -16,9 +15,8 @@ Un sistema completo de gestión de eventos desarrollado con React, TypeScript, N
 
 ### Gestión de Usuarios
 
-- Registro y autenticación de usuarios
+- Registro de usuarios
 - Validación de correos electrónicos
-- Encriptación segura de contraseñas
 
 ### Gestión de Eventos
 
