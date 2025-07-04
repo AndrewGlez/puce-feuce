@@ -12,9 +12,11 @@
     "dev:all": "concurrently \"vite\" \"bun run --watch src/server/index.ts\""
   },
   "dependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/express": "^5.0.3",
     "@types/morgan": "^1.9.10",
     "@types/node": "^24.0.4",
+    "bcrypt": "^6.0.0",
     "concurrently": "^9.1.2",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",

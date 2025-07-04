@@ -5,6 +5,7 @@ import { RegisterRoutes } from "./build/routes";
 import swaggerUi from "swagger-ui-express";
 import connectDB from "./config/database";
 import morgan from "morgan";
+import { MongooseError } from "mongoose";
 
 const app = express();
 
@@ -23,6 +24,12 @@ const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
     res.status(422).json({
       message: "Falló la validación de los datos.",
       details: err?.fields,
+    });
+    return;
+  }
+  if (err instanceof MongooseError) {
+    res.status(400).json({
+      message: err.message,
     });
     return;
   }
