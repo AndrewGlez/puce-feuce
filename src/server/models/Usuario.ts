@@ -18,6 +18,10 @@ const usuarioSchema = new mongoose.Schema<Usuario>(
       unique: true,
       lowercase: true,
       trim: true,
+      match: [
+        /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+        "Correo inválido",
+      ],
     },
     contraseña: {
       type: String,

@@ -1,5 +1,6 @@
 {
   "files": ["./index.ts"],
+  "include": ["./**/*.ts"],
 
   "compilerOptions": {
     "noEmit": true,

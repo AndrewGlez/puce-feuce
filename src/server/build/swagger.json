@@ -37,28 +37,6 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"ValidateErrorJSON": {
-				"properties": {
-					"message": {
-						"type": "string",
-						"enum": [
-							"Validation failed"
-						],
-						"nullable": false
-					},
-					"details": {
-						"properties": {},
-						"additionalProperties": {},
-						"type": "object"
-					}
-				},
-				"required": [
-					"message",
-					"details"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
 			"Pick_Usuario.Exclude_keyofUsuario._id-or-createdAt-or-updatedAt__": {
 				"properties": {
 					"correo": {
@@ -294,16 +272,6 @@
 							}
 						}
 					},
-					"400": {
-						"description": "Validation failed",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ValidateErrorJSON"
-								}
-							}
-						}
-					},
 					"404": {
 						"description": "Usuario not found"
 					}
@@ -345,16 +313,6 @@
 										}
 									],
 									"nullable": true
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Validation failed",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ValidateErrorJSON"
 								}
 							}
 						}
@@ -409,16 +367,6 @@
 							}
 						}
 					},
-					"400": {
-						"description": "Validation failed",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ValidateErrorJSON"
-								}
-							}
-						}
-					},
 					"404": {
 						"description": "Usuario not found"
 					}
@@ -455,16 +403,6 @@
 								}
 							}
 						}
-					},
-					"400": {
-						"description": "Validation failed",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ValidateErrorJSON"
-								}
-							}
-						}
 					}
 				},
 				"tags": [
@@ -482,16 +420,6 @@
 							"application/json": {
 								"schema": {
 									"$ref": "#/components/schemas/Usuario"
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Validation failed",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ValidateErrorJSON"
 								}
 							}
 						}
@@ -529,16 +457,6 @@
 										}
 									],
 									"nullable": true
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Validation failed",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ValidateErrorJSON"
 								}
 							}
 						}
@@ -584,16 +502,6 @@
 										}
 									],
 									"nullable": true
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Validation failed",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ValidateErrorJSON"
 								}
 							}
 						}
@@ -648,16 +556,6 @@
 							}
 						}
 					},
-					"400": {
-						"description": "Validation failed",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ValidateErrorJSON"
-								}
-							}
-						}
-					},
 					"404": {
 						"description": "Evento not found"
 					}
@@ -691,16 +589,6 @@
 										"$ref": "#/components/schemas/Eventos"
 									},
 									"type": "array"
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Validation failed",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ValidateErrorJSON"
 								}
 							}
 						}
@@ -757,16 +645,6 @@
 								}
 							}
 						}
-					},
-					"400": {
-						"description": "Validation failed",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ValidateErrorJSON"
-								}
-							}
-						}
 					}
 				},
 				"tags": [
@@ -801,16 +679,6 @@
 										}
 									],
 									"nullable": true
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Validation failed",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ValidateErrorJSON"
 								}
 							}
 						}
@@ -856,16 +724,6 @@
 										}
 									],
 									"nullable": true
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Validation failed",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ValidateErrorJSON"
 								}
 							}
 						}

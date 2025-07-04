@@ -2,10 +2,10 @@
   "name": "puce-feuce",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "dev": "vite",
-    "dev:server": "tsoa spec-and-routes && bun run --watch src/server/index.ts",
+    "dev:server": "ts-node-dev --respawn --project src/server/tsconfig.json src/server/index.ts",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
@@ -21,7 +21,8 @@
     "mongoose": "^8.16.0",
     "morgan": "^1.10.0",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "ts-node-dev": "^2.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",

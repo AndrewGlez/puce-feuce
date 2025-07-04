@@ -1,0 +1,5 @@
+{
+    "name": "puce-feuce-server",
+    "type": "commonjs",
+    "main": "./index.ts"
+}

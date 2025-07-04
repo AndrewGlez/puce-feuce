@@ -24,13 +24,13 @@ const EventosSchema = new mongoose.Schema<Eventos>(
       type: String,
       required: true,
       trim: true,
-      maxlength: [200, "Title cannot exceed 200 characters"],
+      maxlength: [200, "El título no puede exceder los 200 caracteres"],
     },
     descripcion: {
       type: String,
       required: true,
       trim: true,
-      maxlength: [1000, "Description cannot exceed 1000 characters"],
+      maxlength: [1000, "La descripción no puede exceder los 1000 caracteres"],
     },
     fecha_inicio: {
       type: Date,
@@ -39,7 +39,7 @@ const EventosSchema = new mongoose.Schema<Eventos>(
         validator: function (date: Date) {
           return date >= new Date();
         },
-        message: "Start date must be in the future",
+        message: "La fecha de inicio debe estar en el futuro",
       },
     },
     fecha_fin: {
@@ -48,7 +48,7 @@ const EventosSchema = new mongoose.Schema<Eventos>(
         validator: function (this: Eventos, date: Date) {
           return !date || date > this.fecha_inicio;
         },
-        message: "End date must be after start date",
+        message: "La fecha de finalización debe ser posterior a la fecha de inicio",
       },
     },
     tipo_evento: {

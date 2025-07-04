@@ -21,7 +21,7 @@ const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
   if (err instanceof ValidateError) {
     console.warn(`Caught Validation Error for ${req.path}:`, err.fields);
     res.status(422).json({
-      message: "Validation Failed",
+      message: "Falló la validación de los datos.",
       details: err?.fields,
     });
     return;
