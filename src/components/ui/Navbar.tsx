@@ -1,6 +1,6 @@
-import { Icon } from "@iconify/react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { IconMenu } from "@tabler/icons-react";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -39,10 +39,11 @@ export default function Navbar() {
         onClick={toggleMenu}
         aria-label="Toggle navigation menu"
       >
-        <Icon
-          icon={isMenuOpen ? "mdi:close" : "mdi:menu"}
-          className="w-6 h-6"
-        />
+        {isMenuOpen ? (
+          <IconMenu className="w-6 h-6 text-white" aria-label="Cerrar menú" />
+        ) : (
+          <IconMenu className="w-6 h-6 text-white" aria-label="Abrir menú" />
+        )}
       </button>
 
       {/* Navegación Móvil con animaciones */}

@@ -1,4 +1,4 @@
-import { LogoPlaceholder } from "../assets";
+import { LogoPlaceholder } from "../../assets";
 import Navbar from "./Navbar";
 
 export default function Header({ style }: { style?: string }) {

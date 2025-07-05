@@ -1,4 +1,4 @@
-import { LogoPlaceholder2 } from "../assets";
+import { LogoPlaceholder2 } from "../../assets";
 
 export default function Footer({ style }: { style?: string }) {
   return (

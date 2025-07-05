@@ -12,7 +12,7 @@
     "dev:all": "concurrently \"vite\" \"bun run --watch src/server/index.ts\""
   },
   "dependencies": {
-    "@iconify/react": "^6.0.0",
+    "@tabler/icons-react": "^3.34.0",
     "@tailwindcss/vite": "^4.1.11",
     "@types/express": "^5.0.3",
     "@types/morgan": "^1.9.10",
