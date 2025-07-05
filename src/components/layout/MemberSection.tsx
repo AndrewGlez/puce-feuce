@@ -37,7 +37,7 @@ const teamMembers = [
 export default function MemberSection({ style = "" }: { style?: string }) {
   return (
     <section className={`py-10 bg-gray-50 ${style}`}>
-      <div className="container mx-auto">
+      <div className="container mx-auto px-6 lg:p-0">
         <h2 className="text-4xl font-bold text-center mb-16 text-gray-800">
           Miembros Directivos
         </h2>
