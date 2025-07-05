@@ -35,7 +35,7 @@ export default function Navbar() {
 
       {/* Botón Hamburguesa */}
       <button
-        className="md:hidden flex items-center justify-center p-2 rounded-md hover:bg-gray-100 transition-colors"
+        className="md:hidden flex items-center justify-center p-2 rounded-md hover:bg-slate-700 transition-colors"
         onClick={toggleMenu}
         aria-label="Toggle navigation menu"
       >
@@ -81,7 +81,7 @@ export default function Navbar() {
                       delay: index * 0.1 + 0.2,
                       duration: 0.3,
                     }}
-                    className="px-6 py-4 text-lg text-white transition-colors border-b"
+                    className="hover:bg-feuce-hover px-6 py-4 text-lg text-white transition-colors border-b"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {link.name}
