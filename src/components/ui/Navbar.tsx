@@ -1,17 +1,19 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { IconMenu } from "@tabler/icons-react";
+import { useNavigate } from "react-router";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const navLinks = [
-    { name: "Inicio", href: "#" },
-    { name: "Miembros", href: "#" },
-    { name: "Eventos", href: "#" },
-    { name: "Documentos", href: "#" },
-    { name: "Reclamos", href: "#" },
-    { name: "Impresiones", href: "#" },
+    { name: "Inicio", path: "/" },
+    { name: "Miembros", path: "/miembros" },
+    { name: "Eventos", path: "/eventos" },
+    { name: "Documentos", path: "/documentos" },
+    { name: "Reclamos", path: "/reclamos" },
+    { name: "Impresiones", path: "/impresiones" },
   ];
 
   const toggleMenu = () => {
@@ -23,13 +25,13 @@ export default function Navbar() {
       {/* navegación de escritorio */}
       <div className="hidden md:flex space-x-4">
         {navLinks.map((link) => (
-          <a
+          <button
             key={link.name}
-            href={link.href}
-            className="text-sm transition-colors hover:text-slate-400"
+            onClick={() => navigate(link.path)}
+            className="text-sm cursor-pointer transition-colors hover:text-slate-400"
           >
             {link.name}
-          </a>
+          </button>
         ))}
       </div>
 
@@ -56,7 +58,9 @@ export default function Navbar() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
               className="fixed inset-0 bg-black md:hidden z-40"
-              onClick={() => setIsMenuOpen(false)}
+              onClick={() => {
+                setIsMenuOpen(false);
+              }}
             />
 
             <motion.div
@@ -72,9 +76,8 @@ export default function Navbar() {
             >
               <div className="flex flex-col h-full pt-16">
                 {navLinks.map((link, index) => (
-                  <motion.a
+                  <motion.button
                     key={link.name}
-                    href={link.href}
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{
@@ -82,10 +85,13 @@ export default function Navbar() {
                       duration: 0.3,
                     }}
                     className="hover:bg-feuce-hover px-6 py-4 text-lg text-white transition-colors border-b"
-                    onClick={() => setIsMenuOpen(false)}
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      navigate(link.path);
+                    }}
                   >
                     {link.name}
-                  </motion.a>
+                  </motion.button>
                 ))}
               </div>
             </motion.div>
