@@ -2,6 +2,7 @@ import React from "react";
 import asambleaImg from "../../assets/Asamble de estudiantes.jpeg";
 import liderazgoImg from "../../assets/Taller de Liderazgo Estudiantil.jpg";
 import festivalImg from "../../assets/Festival Cultural Universitario.jpg";
+import { Link } from "react-router-dom";
 
 const events = [
   {
@@ -59,7 +60,11 @@ export default function FeaturedEventsSection() {
           </div>
         ))}
       </div>
-      <button className="mt-12 px-10 py-3 bg-[#0A233F] text-white rounded-xl font-bold text-xl shadow-md hover:bg-[#16324A] transition-all">Ver todos los eventos</button>
+      <Link to="/eventos">
+        <button className="mt-12 px-10 py-3 bg-[#0A233F] text-white rounded-xl font-bold text-xl shadow-md hover:bg-[#16324A] transition-all">
+          Ver todos los eventos
+        </button>
+      </Link>
     </section>
   );
 } 

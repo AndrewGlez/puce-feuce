@@ -1,21 +1,22 @@
 import { Routes, Route } from "react-router";
 import HomePage from "./pages/HomePage";
 import AppLayout from "./layout/AppLayout";
+import MiembrosPage from "./pages/MiembrosPage";
+import EventosPage from "./pages/EventosPage";
+import DocumentosPage from "./pages/DocumentosPage";
+import ReclamosPage from "./pages/ReclamosPage";
+import ImpresionesPage from "./pages/ImpresionesPage";
 
 function MainRouter() {
   return (
     <Routes>
       <Route path="/" element={<AppLayout />}>
         <Route index element={<HomePage />} />
-
-        {/* TODO: Definir las rutas anidadas para cada sección */}
-        <Route path="miembros" element={<div>Miembros Page</div>} />
-        <Route path="eventos" element={<div>Eventos Page</div>} />
-        <Route path="documentos" element={<div>Documentos Page</div>} />
-        <Route path="reclamos" element={<div>Reclamos Page</div>} />
-        <Route path="impresiones" element={<div>Impresiones Page</div>} />
-
-        {/* Ruta para manejar 404 Not Found */}
+        <Route path="miembros" element={<MiembrosPage />} />
+        <Route path="eventos" element={<EventosPage />} />
+        <Route path="documentos" element={<DocumentosPage />} />
+        <Route path="reclamos" element={<ReclamosPage />} />
+        <Route path="impresiones" element={<ImpresionesPage />} />
         <Route
           path="*"
           element={

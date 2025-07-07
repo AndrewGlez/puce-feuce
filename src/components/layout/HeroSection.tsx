@@ -1,5 +1,6 @@
 import { IconTargetArrow } from "@tabler/icons-react";
 import Button from "../ui/Button";
+import { Link } from "react-router-dom";
 
 export default function HeroSection() {
   return (
@@ -13,9 +14,11 @@ export default function HeroSection() {
             Representando y trabajando por los derechos e intereses de todos los
             estudiantes universitarios de la Universidad Esmeraldas.
           </p>
-          <Button className="flex select-none justify-center bg-white items-center cursor-pointer text-feuce-primary hover:bg-gray-300">
-            Ver Eventos
-          </Button>
+          <Link to="/eventos">
+            <Button className="flex select-none justify-center bg-white items-center cursor-pointer text-feuce-primary hover:bg-gray-300">
+              Ver Eventos
+            </Button>
+          </Link>
         </div>
         <div className="flex flex-col items-center justify-center">
           <div className="w-64 h-64 bg-white/10 rounded-full flex items-center justify-center">
