@@ -1,7 +1,6 @@
-
 import HeroSection from "../layout/HeroSection";
-import MemberSection from "../layout/MemberSection";
 import IdentitySection from "../layout/IdentitySection";
+import MemberSection from "../layout/MemberSection";
 import ValuesSection from "../layout/ValuesSection";
 import FeaturedEventsSection from "../layout/FeaturedEventsSection";
 

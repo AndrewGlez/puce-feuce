@@ -84,7 +84,7 @@ export default function Navbar() {
                       delay: index * 0.1 + 0.2,
                       duration: 0.3,
                     }}
-                    className="hover:bg-feuce-hover px-6 py-4 text-lg text-white transition-colors border-b"
+                    className="text-start hover:bg-feuce-hover px-6 py-4 text-lg text-white transition-colors border-b"
                     onClick={() => {
                       setIsMenuOpen(false);
                       navigate(link.path);

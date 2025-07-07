@@ -20,18 +20,26 @@ export default function Card({
         className="object-cover mb-20 w-full h-full rounded-t-sm rounded-b-xl"
       />
       <div className="absolute shadow-md hover:shadow-lg bottom-0 flex flex-col w-full justify-center p-[9px] text-center rounded-lg bg-white">
-        <h3 className="text-xl font-normal text-gray-800">{member.name}</h3>
+        <h3 className="xl:text-xl 2xl:text-2xl font-normal text-gray-800">
+          {member.name}
+        </h3>
         <div className="flex flex-row space-x-3 justify-start">
-          <IconFlagFilled className="w-4 h-4 mt-0.5 text-feuce-primary" />
-          <span className="text-sm text-gray-600">{member.role}</span>
+          <IconFlagFilled className="w-4 h-4 mt-1.5 text-feuce-primary" />
+          <span className="xl:text-md 2xl:text-xl text-gray-600">
+            {member.role}
+          </span>
         </div>
         <div className="flex flex-row space-x-3 justify-start">
-          <AcademicIcon className="w-4 h-4 mt-0.5 text-feuce-primary" />
-          <span className="text-sm text-gray-600">{member.department}</span>
+          <AcademicIcon className="w-4 h-4 mt-1.5 text-feuce-primary" />
+          <span className="xl:text-md 2xl:text-xl text-gray-600">
+            {member.department}
+          </span>
         </div>
         <div className="flex flex-row space-x-3 justify-start">
-          <IconMailFilled className="w-4 h-4 mt-0.5 text-feuce-primary" />
-          <span className="text-sm text-gray-600">{member.email}</span>
+          <IconMailFilled className="w-4 h-4 mt-1.5 text-feuce-primary" />
+          <span className="xl:text-md 2xl:text-xl text-gray-600">
+            {member.email}
+          </span>
         </div>
       </div>
     </div>

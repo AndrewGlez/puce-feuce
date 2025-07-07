@@ -1,83 +1,40 @@
-import React from "react";
-
-function SolidarityIcon({ className = "" }) {
-  return (
-    <svg fill="#004666" className={className} width="90" height="90" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
-      <g> 
-        <circle cx="193.3" cy="113.5" r="16.8"></circle> 
-        <circle cx="172.6" cy="155.3" r="16.8"></circle> 
-        <path d="M145.8,175.2h-18.9h-18.9c-11.5,0-18.7,9.5-18.7,21.4v29.3h12.9V200c0-1.2,1-2,2-2c1.2,0,2,0.8,2,2v25.8h41.5V200 c0-1.2,1-2,2-2c1.2,0,2,1,2,2v25.8h12.9v-29.1C164.8,184.7,157.5,175.2,145.8,175.2z"></path> 
-        <circle cx="150.5" cy="113.5" r="16.8"></circle> 
-        <path d="M199.9,155.3c0,9.3,7.5,16.8,16.8,16.8c9.3,0,16.8-7.5,16.8-16.8c0-9.3-7.5-16.8-16.8-16.8 C207.4,138.5,199.9,146,199.9,155.3z"></path> 
-        <path d="M198.2,175.2c-11.5,0-18.7,9.5-18.7,21.4v29.3h12.9V200c0-1.2,1-2,2-2c1.2,0,2,0.8,2,2v25.8h41.5V200c0-1.2,1-2,2-2 c1.2,0,2,1,2,2v25.8h12.9v-29.1c0.2-12.1-7.1-21.6-18.7-21.6h-18.9H198.2z"></path> 
-        <circle cx="40.6" cy="155.3" r="16.8"></circle> 
-        <path d="M15.6,225.8V200c0-1.2,1-2,2-2c1.2,0,2,0.8,2,2v25.8h41.5V200c0-1.2,1-2,2-2c1.2,0,2,1,2,2v25.8h12.9v-29.1 c0.2-12.1-7.1-21.6-18.7-21.6H40.4H21.5c-11.5,0-18.7,9.5-18.7,21.4v29.3H15.6z"></path> 
-        <path d="M110.1,155.3c0,9.3,7.5,16.8,16.8,16.8c9.3,0,16.8-7.5,16.8-16.8c0-9.3-7.5-16.8-16.8-16.8 C117.6,138.5,110.1,146,110.1,155.3z"></path> 
-        <circle cx="62.1" cy="113.5" r="16.8"></circle> 
-        <circle cx="107.5" cy="113.5" r="16.8"></circle> 
-        <circle cx="171.5" cy="77.6" r="16.8"></circle> 
-        <circle cx="83.1" cy="77.6" r="16.8"></circle> 
-        <circle cx="128.4" cy="77.6" r="16.8"></circle> 
-        <circle cx="84.9" cy="155.3" r="16.8"></circle> 
-      </g>
-    </svg>
-  );
-}
-
-function IntegrityIcon({ className = "" }) {
-  return (
-    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="none" className={className} width="90" height="90">
-      <path fill="#004666" fillRule="evenodd" d="M4 1a2 2 0 00-2 2v14a2 2 0 002 2h12a2 2 0 002-2V7.414A2 2 0 0017.414 6L13 1.586A2 2 0 0011.586 1H4zm0 2h7.586L16 7.414V17H4V3zm10.097 6.717a1 1 0 10-1.394-1.434l-3.521 3.424-1.609-1.126a1 1 0 00-1.146 1.638l2.285 1.6a1 1 0 001.27-.102l4.115-4z"></path>
-    </svg>
-  );
-}
-
-function InnovationIcon({ className = "" }) {
-  return (
-    <svg viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#004666" className={className} width="90" height="90">
-      <g>
-        <path d="M12,3C9.6,3,7.5,4.5,6.5,6.9c-0.7,1.8-0.7,3.9,0.1,5.7l1.6,3.6v2c0,1,0.8,1.8,1.8,1.8h0c0,0.6,0.4,1,1,1h1.8 c0.6,0,1-0.4,1-1h0c1,0,1.8-0.8,1.8-1.8v-2l1.6-3.6c0.8-1.8,0.8-3.9,0.1-5.7C16.5,4.5,14.4,3,12,3z M13.8,18h-3.5v-1h3.5V18z M15.6,11.8L14.1,15H13v-1.3c0.5-0.1,0.8-0.5,0.8-1c0-0.6-0.4-1-1-1h-1.7c-0.6,0-1,0.4-1,1c0,0.5,0.4,0.9,0.8,1V15H9.9l-1.4-3.2 C7.9,10.5,7.9,9,8.4,7.7C9.1,6,10.4,5,12,5s2.9,1,3.6,2.7C16.1,9,16.1,10.5,15.6,11.8z"></path>
-        <path d="M3.7,4.3c-0.4-0.4-1-0.4-1.4,0s-0.4,1,0,1.4l1,1C3.5,6.9,3.7,7,4,7s0.5-0.1,0.7-0.3c0.4-0.4,0.4-1,0-1.4L3.7,4.3z"></path>
-        <path d="M3,10c0.6,0,1-0.4,1-1S3.6,8,3,8H2C1.4,8,1,8.4,1,9s0.4,1,1,1H3z"></path>
-        <path d="M3.3,11.3l-1,1c-0.4,0.4-0.4,1,0,1.4C2.5,13.9,2.7,14,3,14s0.5-0.1,0.7-0.3l1-1c0.4-0.4,0.4-1,0-1.4S3.7,10.9,3.3,11.3z"></path>
-        <path d="M20.7,11.3c-0.4-0.4-1-0.4-1.4,0s-0.4,1,0,1.4l1,1c0.2,0.2,0.5,0.3,0.7,0.3s0.5-0.1,0.7-0.3c0.4-0.4,0.4-1,0-1.4 L20.7,11.3z"></path>
-        <path d="M22,8h-1c-0.6,0-1,0.4-1,1s0.4,1,1,1h1c0.6,0,1-0.4,1-1S22.6,8,22,8z"></path>
-        <path d="M20,7c0.3,0,0.5-0.1,0.7-0.3l1-1c0.4-0.4,0.4-1,0-1.4s-1-0.4-1.4,0l-1,1c-0.4,0.4-0.4,1,0,1.4C19.5,6.9,19.7,7,20,7z"></path>
-      </g>
-    </svg>
-  );
-}
-
-function EquityIcon({ className = "" }) {
-  return (
-    <svg fill="#004666" className={className} width="90" height="90" viewBox="0 0 211.188 211.188" xmlns="http://www.w3.org/2000/svg">
-      <path d="M211.18,86.626c0.037-0.789-0.108-1.588-0.45-2.328L178.59,14.745c-0.012-0.026-0.029-0.048-0.041-0.074 c-0.035-0.073-0.078-0.139-0.116-0.21c-0.105-0.193-0.219-0.377-0.346-0.551c-0.056-0.077-0.112-0.153-0.172-0.227 c-0.155-0.189-0.321-0.366-0.5-0.529c-0.033-0.03-0.061-0.064-0.094-0.093c-0.214-0.185-0.446-0.346-0.688-0.492 c-0.071-0.043-0.145-0.079-0.218-0.119c-0.188-0.102-0.382-0.19-0.583-0.267c-0.079-0.03-0.156-0.062-0.236-0.088 c-0.271-0.088-0.547-0.16-0.833-0.201c-0.03-0.004-0.061-0.003-0.091-0.007c-0.205-0.026-0.411-0.045-0.621-0.045 c-0.058,0-0.114,0.01-0.172,0.012c-0.086,0.003-0.172,0.011-0.259,0.019c-0.246,0.021-0.487,0.06-0.723,0.116 c-0.045,0.01-0.089,0.01-0.133,0.021l-57.176,15.228v-5.239c0-5.51-4.482-9.992-9.992-9.992s-9.992,4.482-9.992,9.992v10.562 l-59.75,15.913c-0.018,0.005-0.032,0.014-0.05,0.019c-0.286,0.08-0.563,0.185-0.828,0.312c-0.073,0.035-0.139,0.076-0.209,0.114 c-0.192,0.104-0.377,0.22-0.554,0.349c-0.073,0.053-0.146,0.104-0.216,0.16c-0.22,0.178-0.43,0.37-0.618,0.585 c-0.013,0.014-0.022,0.031-0.035,0.046c-0.174,0.203-0.328,0.424-0.469,0.656c-0.045,0.075-0.084,0.151-0.126,0.228 c-0.048,0.089-0.104,0.173-0.147,0.266L0.461,120.762c-0.328,0.711-0.471,1.475-0.45,2.234C0.005,123.154,0,123.311,0,123.469 c0,19.646,16.661,35.63,37.14,35.63s37.14-15.983,37.14-35.63c0-0.127-0.004-0.253-0.008-0.379c0.037-0.79-0.108-1.589-0.45-2.329 L44.175,56.607l51.429-13.697v108.106c0,16.417-13.356,29.773-29.773,29.773c-7.439,0-13.492,6.052-13.492,13.558 c0,2.761,2.238,5,5,5h96.516c2.762,0,5-2.305,5-5.066c0-7.439-6.053-13.492-13.492-13.492c-16.417,0-29.773-13.356-29.773-29.773 V37.587l49.455-13.171L137.37,84.297c-0.328,0.711-0.471,1.476-0.45,2.235c-0.005,0.158-0.01,0.315-0.01,0.473 c0,19.646,16.661,35.63,37.14,35.63s37.14-15.984,37.14-35.63C211.188,86.878,211.184,86.752,211.18,86.626z M12.818,117.859 l24.322-52.634l24.323,52.634H12.818z M174.051,28.761l24.322,52.634h-48.646L174.051,28.761z"></path>
-    </svg>
-  );
-}
+import EquityIcon from "../../assets/equity-icon";
+import InnovationIcon from "../../assets/innovation-icon";
+import IntegrityIcon from "../../assets/integrity-icon";
+import SolidarityIcon from "../../assets/solidarity-icon";
 
 export default function ValuesSection() {
   return (
     <section className="w-full flex flex-col items-center py-10 bg-white">
-      <h2 className="text-5xl font-bold text-center mb-12 text-[#0A233F] font-geologica">Nuestros Valores</h2>
-      <div className="w-full flex flex-col md:flex-row justify-center items-center gap-12 md:gap-0">
+      <h2 className="text-5xl font-bold text-center mb-12 text-[#0A233F] font-geologica">
+        Nuestros Valores
+      </h2>
+      <div className="w-full flex flex-col md:flex-row justify-center items-center xl:gap-12 md:gap-0">
         <div className="flex flex-col items-center flex-1">
           <SolidarityIcon />
-          <span className="mt-4 text-2xl font-bold text-black font-geologica">Solidaridad</span>
+          <span className="mt-4 text-2xl font-bold text-black font-geologica">
+            Solidaridad
+          </span>
         </div>
         <div className="flex flex-col items-center flex-1">
           <IntegrityIcon />
-          <span className="mt-4 text-2xl font-bold text-black font-geologica">Integridad</span>
+          <span className="mt-4 text-2xl font-bold text-black font-geologica">
+            Integridad
+          </span>
         </div>
         <div className="flex flex-col items-center flex-1">
           <InnovationIcon />
-          <span className="mt-4 text-2xl font-bold text-black font-geologica">Innovación</span>
+          <span className="mt-4 text-2xl font-bold text-black font-geologica">
+            Innovación
+          </span>
         </div>
         <div className="flex flex-col items-center flex-1">
           <EquityIcon />
-          <span className="mt-4 text-2xl font-bold text-black font-geologica">Equidad</span>
+          <span className="mt-4 text-2xl font-bold text-black font-geologica">
+            Equidad
+          </span>
         </div>
       </div>
     </section>
   );
-} 
+}
