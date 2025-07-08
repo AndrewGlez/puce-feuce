@@ -3,7 +3,7 @@ import VisionIcon from "../../assets/vision-icon";
 
 export default function IdentitySection() {
   return (
-    <section className="w-full flex flex-col items-center py-10 bg-white">
+    <section className="w-full px-10 flex flex-col items-center py-10 bg-white">
       <h2 className="text-5xl font-normal text-center mb-12 text-feuce-primary font-geologica">
         Nuestra Identidad
       </h2>
