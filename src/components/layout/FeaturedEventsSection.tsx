@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router";
 import { asambleaImg, festivalImg, liderazgoImg } from "../../assets";
 
 const events = [
@@ -40,9 +41,10 @@ const events = [
 ];
 
 export default function FeaturedEventsSection() {
+  const navigate = useNavigate();
   return (
-    <section className="w-auto flex flex-col items-center py-10 bg-white mt-20">
-      <h2 className="text-5xl font-bold text-center mb-12 text-feuce-primary font-geologica">
+    <section className="w-auto flex flex-col items-center bg-white py-16">
+      <h2 className="text-5xl font-normal text-center mb-12 text-feuce-primary font-geologica">
         Eventos Destacados
       </h2>
       <div className="w-auto flex flex-col md:flex-row justify-center items-stretch gap-8 max-w-[90vw]">
@@ -57,21 +59,23 @@ export default function FeaturedEventsSection() {
               className="h-56 object-cover"
             />
             <div className="flex flex-col flex-1 p-6">
-              <span
-                className={`inline-flex w-auto px-3 py-2 rounded-lg font-semibold text-base mb-3 justify-center items-center ${event.labelColor}`}
+              <div
+                className={`inline-block px-3 py-1 rounded-lg font-geologica font-light mb-3 items-center w-fit ${event.labelColor}`}
               >
-                {event.label}
-              </span>
-              <h3 className="text-2xl font-bold mb-2 text-feuce-primary font-geologica">
+                <span>{event.label}</span>
+              </div>
+              <h3 className="text-2xl font-normal mb-2 text-black font-geologica">
                 {event.title}
               </h3>
-              <div className="text-[#5B5B5B] font-semibold mb-2">
+              <div className="text-[#5B5B5B] font-geologica font-semibold mb-2">
                 {event.date}
               </div>
-              <div className="text-[#444] mb-4 flex-1">{event.description}</div>
+              <div className="text-[#444] font-geologica mb-4 flex-1">
+                {event.description}
+              </div>
               <a
                 href={event.link}
-                className={`font-semibold underline underline-offset-2 ${event.linkColor} hover:opacity-80 transition-all flex items-center gap-1`}
+                className={`font-semibold font-geologica underline underline-offset-2 ${event.linkColor} hover:opacity-80 transition-all flex items-center gap-1`}
               >
                 {event.linkText} <span aria-hidden>→</span>
               </a>
@@ -79,7 +83,10 @@ export default function FeaturedEventsSection() {
           </div>
         ))}
       </div>
-      <button className="mt-12 px-10 py-3 bg-feuce-primary font-geologica text-white rounded-xl font-bold text-xl shadow-md hover:bg-[#16324A] transition-all">
+      <button
+        onClick={() => navigate("/eventos")}
+        className="mt-12 px-10 py-3 bg-feuce-primary font-geologica text-white rounded-xl font-normal text-xl shadow-md hover:bg-[#16324A] transition-all"
+      >
         Ver todos los eventos
       </button>
     </section>

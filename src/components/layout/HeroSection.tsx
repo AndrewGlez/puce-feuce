@@ -1,7 +1,9 @@
 import { IconTargetArrow } from "@tabler/icons-react";
 import Button from "../ui/Button";
+import { useNavigate } from "react-router";
 
 export default function HeroSection() {
+  const navigate = useNavigate();
   return (
     <section className="font-geologica bg-feuce-primary opacity-[0.96] text-white py-20">
       <div className="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
@@ -16,7 +18,10 @@ export default function HeroSection() {
             Representando y trabajando por los derechos e intereses de todos los
             estudiantes universitarios de la Universidad Esmeraldas.
           </p>
-          <Button className="flex xl:text-xl 2xl:text-xl select-none justify-center bg-white items-center cursor-pointer text-feuce-primary hover:bg-gray-300">
+          <Button
+            onClick={() => navigate("/eventos")}
+            className="flex xl:text-xl 2xl:text-xl select-none justify-center bg-white items-center cursor-pointer text-feuce-primary hover:bg-gray-300"
+          >
             Ver Eventos
           </Button>
         </div>
