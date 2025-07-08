@@ -9,6 +9,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
+    "tsoa": "tsoa spec-and-routes",
     "dev:all": "concurrently \"vite\" \"bun run --watch src/server/index.ts\""
   },
   "dependencies": {
@@ -17,6 +18,7 @@
     "@types/express": "^5.0.3",
     "@types/morgan": "^1.9.10",
     "@types/node": "^24.0.4",
+    "axios": "^1.10.0",
     "concurrently": "^9.1.2",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
@@ -27,6 +29,7 @@
     "react-dom": "^19.1.0",
     "react-router": "^7.6.3",
     "react-router-dom": "^7.6.3",
+    "swr": "^2.3.4",
     "tailwindcss": "^4.1.11",
     "ts-node-dev": "^2.0.0"
   },

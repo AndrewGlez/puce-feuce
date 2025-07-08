@@ -1,3 +1,9 @@
+import AllEventsSection from "../layout/AllEventsSection";
+
 export default function EventosPage() {
-  return <div>Eventos Page</div>;
+  return (
+    <div>
+      <AllEventsSection />
+    </div>
+  );
 }
