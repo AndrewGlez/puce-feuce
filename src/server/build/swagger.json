@@ -258,7 +258,7 @@
 				"operationId": "GetUsuario",
 				"responses": {
 					"200": {
-						"description": "Ok",
+						"description": "Una promesa que resuelve con el usuario encontrado o `null` si no se encuentra.",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -276,12 +276,14 @@
 						"description": "Usuario not found"
 					}
 				},
+				"description": "Obtiene un usuario específico por su ID.",
 				"tags": [
 					"Usuarios"
 				],
 				"security": [],
 				"parameters": [
 					{
+						"description": "- El identificador único del usuario que se desea obtener.",
 						"in": "path",
 						"name": "usuarioId",
 						"required": true,
@@ -290,6 +292,7 @@
 						}
 					},
 					{
+						"description": "- Filtro opcional por correo del usuario.",
 						"in": "query",
 						"name": "correo",
 						"required": false,
@@ -303,7 +306,7 @@
 				"operationId": "UpdateUsuario",
 				"responses": {
 					"200": {
-						"description": "Ok",
+						"description": "Una promesa que resuelve con el usuario actualizado o `null` si no se encuentra.",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -321,12 +324,14 @@
 						"description": "Usuario not found"
 					}
 				},
+				"description": "Actualiza un usuario específico.",
 				"tags": [
 					"Usuarios"
 				],
 				"security": [],
 				"parameters": [
 					{
+						"description": "- El identificador único del usuario que se desea actualizar.",
 						"in": "path",
 						"name": "usuarioId",
 						"required": true,
@@ -336,11 +341,13 @@
 					}
 				],
 				"requestBody": {
+					"description": "- Los datos actualizados del usuario.",
 					"required": true,
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/Partial_UsuarioCreationParams_"
+								"$ref": "#/components/schemas/Partial_UsuarioCreationParams_",
+								"description": "- Los datos actualizados del usuario."
 							}
 						}
 					}
@@ -350,7 +357,7 @@
 				"operationId": "DeleteUsuario",
 				"responses": {
 					"200": {
-						"description": "Ok",
+						"description": "Una promesa que resuelve con un objeto que indica si la eliminación fue exitosa.",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -371,12 +378,14 @@
 						"description": "Usuario not found"
 					}
 				},
+				"description": "Elimina un usuario específico.",
 				"tags": [
 					"Usuarios"
 				],
 				"security": [],
 				"parameters": [
 					{
+						"description": "- El identificador único del usuario que se desea eliminar.",
 						"in": "path",
 						"name": "usuarioId",
 						"required": true,
@@ -392,7 +401,7 @@
 				"operationId": "GetUsuarios",
 				"responses": {
 					"200": {
-						"description": "Ok",
+						"description": "Una promesa que resuelve con una lista de usuarios.",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -405,6 +414,7 @@
 						}
 					}
 				},
+				"description": "Obtiene todos los usuarios.",
 				"tags": [
 					"Usuarios"
 				],
@@ -425,17 +435,20 @@
 						}
 					}
 				},
+				"description": "Crea un nuevo usuario.",
 				"tags": [
 					"Usuarios"
 				],
 				"security": [],
 				"parameters": [],
 				"requestBody": {
+					"description": "- Los datos del usuario a crear.",
 					"required": true,
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/UsuarioCreationParams"
+								"$ref": "#/components/schemas/UsuarioCreationParams",
+								"description": "- Los datos del usuario a crear."
 							}
 						}
 					}
@@ -447,7 +460,7 @@
 				"operationId": "GetEvento",
 				"responses": {
 					"200": {
-						"description": "Ok",
+						"description": "Una promesa que resuelve con el evento encontrado o `null` si no se encuentra.",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -465,12 +478,14 @@
 						"description": "Evento not found"
 					}
 				},
+				"description": "Obtiene un evento específico por su ID.",
 				"tags": [
 					"Eventos"
 				],
 				"security": [],
 				"parameters": [
 					{
+						"description": "- El identificador único del evento que se desea obtener.",
 						"in": "path",
 						"name": "eventoId",
 						"required": true,
@@ -479,6 +494,7 @@
 						}
 					},
 					{
+						"description": "- Filtro opcional por título del evento.",
 						"in": "query",
 						"name": "titulo",
 						"required": false,
@@ -492,7 +508,7 @@
 				"operationId": "UpdateEvento",
 				"responses": {
 					"200": {
-						"description": "Ok",
+						"description": "Una promesa que resuelve con el evento actualizado o `null` si no se encuentra.",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -510,12 +526,14 @@
 						"description": "Evento not found"
 					}
 				},
+				"description": "Actualiza un evento específico.",
 				"tags": [
 					"Eventos"
 				],
 				"security": [],
 				"parameters": [
 					{
+						"description": "- El identificador único del evento que se desea actualizar.",
 						"in": "path",
 						"name": "eventoId",
 						"required": true,
@@ -525,11 +543,13 @@
 					}
 				],
 				"requestBody": {
+					"description": "- Los datos actualizados del evento.",
 					"required": true,
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/Partial_EventoCreationParams_"
+								"$ref": "#/components/schemas/Partial_EventoCreationParams_",
+								"description": "- Los datos actualizados del evento."
 							}
 						}
 					}
@@ -539,7 +559,7 @@
 				"operationId": "DeleteEvento",
 				"responses": {
 					"200": {
-						"description": "Ok",
+						"description": "Una promesa que resuelve con un objeto que indica si la eliminación fue exitosa.",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -560,12 +580,14 @@
 						"description": "Evento not found"
 					}
 				},
+				"description": "Elimina un evento específico.",
 				"tags": [
 					"Eventos"
 				],
 				"security": [],
 				"parameters": [
 					{
+						"description": "- El identificador único del evento que se desea eliminar.",
 						"in": "path",
 						"name": "eventoId",
 						"required": true,
@@ -581,7 +603,7 @@
 				"operationId": "GetEventos",
 				"responses": {
 					"200": {
-						"description": "Ok",
+						"description": "Una promesa que resuelve con una lista de eventos.",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -594,12 +616,14 @@
 						}
 					}
 				},
+				"description": "Obtiene todos los eventos.",
 				"tags": [
 					"Eventos"
 				],
 				"security": [],
 				"parameters": [
 					{
+						"description": "- Filtro opcional por tipo de evento.",
 						"in": "query",
 						"name": "tipo_evento",
 						"required": false,
@@ -608,6 +632,7 @@
 						}
 					},
 					{
+						"description": "- Filtro opcional por estado del evento.",
 						"in": "query",
 						"name": "estado",
 						"required": false,
@@ -616,6 +641,7 @@
 						}
 					},
 					{
+						"description": "- Filtro opcional por fecha de inicio.",
 						"in": "query",
 						"name": "fecha_desde",
 						"required": false,
@@ -624,6 +650,7 @@
 						}
 					},
 					{
+						"description": "- Filtro opcional por fecha de fin.",
 						"in": "query",
 						"name": "fecha_hasta",
 						"required": false,
@@ -647,17 +674,20 @@
 						}
 					}
 				},
+				"description": "Crea un nuevo evento.",
 				"tags": [
 					"Eventos"
 				],
 				"security": [],
 				"parameters": [],
 				"requestBody": {
+					"description": "- Los datos del evento a crear.",
 					"required": true,
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/EventoCreationParams"
+								"$ref": "#/components/schemas/EventoCreationParams",
+								"description": "- Los datos del evento a crear."
 							}
 						}
 					}
@@ -669,7 +699,7 @@
 				"operationId": "AddParticipante",
 				"responses": {
 					"200": {
-						"description": "Ok",
+						"description": "Una promesa que resuelve con el evento actualizado o `null` si no se encuentra.",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -687,12 +717,14 @@
 						"description": "Evento or participant not found"
 					}
 				},
+				"description": "Agrega un participante a un evento específico.",
 				"tags": [
 					"Eventos"
 				],
 				"security": [],
 				"parameters": [
 					{
+						"description": "- El identificador único del evento al que se desea agregar el participante.",
 						"in": "path",
 						"name": "eventoId",
 						"required": true,
@@ -701,6 +733,7 @@
 						}
 					},
 					{
+						"description": "- El identificador único del participante que se desea agregar al evento.",
 						"in": "path",
 						"name": "participanteId",
 						"required": true,
@@ -714,7 +747,7 @@
 				"operationId": "RemoveParticipante",
 				"responses": {
 					"200": {
-						"description": "Ok",
+						"description": "Una promesa que resuelve con el evento actualizado o `null` si no se encuentra.",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -732,12 +765,14 @@
 						"description": "Evento or participant not found"
 					}
 				},
+				"description": "Elimina un participante de un evento específico.",
 				"tags": [
 					"Eventos"
 				],
 				"security": [],
 				"parameters": [
 					{
+						"description": "- El identificador único del evento del cual se desea eliminar al participante.",
 						"in": "path",
 						"name": "eventoId",
 						"required": true,
@@ -746,6 +781,7 @@
 						}
 					},
 					{
+						"description": "- El identificador único del participante que se desea eliminar del evento.",
 						"in": "path",
 						"name": "participanteId",
 						"required": true,

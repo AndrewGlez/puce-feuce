@@ -21,6 +21,14 @@ import {
 @Tags("Eventos")
 @Route("eventos")
 export class EventosController extends Controller {
+  /**
+   * Obtiene un evento específico por su ID.
+   *
+   * @param eventoId - El identificador único del evento que se desea obtener.
+   * @param titulo - Filtro opcional por título del evento.
+   * @returns Una promesa que resuelve con el evento encontrado o `null` si no se encuentra.
+   * @throws Lanza un error si ocurre algún problema durante la obtención.
+   */
   @Get("{eventoId}")
   @Response(404, "Evento not found")
   public async getEvento(
@@ -35,6 +43,16 @@ export class EventosController extends Controller {
     }
   }
 
+  /**
+   * Obtiene todos los eventos.
+   *
+   * @param tipo_evento - Filtro opcional por tipo de evento.
+   * @param estado - Filtro opcional por estado del evento.
+   * @param fecha_desde - Filtro opcional por fecha de inicio.
+   * @param fecha_hasta - Filtro opcional por fecha de fin.
+   * @returns Una promesa que resuelve con una lista de eventos.
+   * @throws Lanza un error si ocurre algún problema durante la obtención.
+   */
   @Get()
   public async getEventos(
     @Query() tipo_evento?: string,
@@ -62,6 +80,13 @@ export class EventosController extends Controller {
     }
   }
 
+  /**
+   * Crea un nuevo evento.
+   *
+   * @param requestBody - Los datos del evento a crear.
+   * @returns Una promesa que resuelve con el evento creado.
+   * @throws Lanza un error si ocurre algún problema durante la creación.
+   */
   @SuccessResponse("201", "Created")
   @Post()
   public async createEvento(
@@ -76,6 +101,14 @@ export class EventosController extends Controller {
     }
   }
 
+  /**
+   * Actualiza un evento específico.
+   *
+   * @param eventoId - El identificador único del evento que se desea actualizar.
+   * @param requestBody - Los datos actualizados del evento.
+   * @returns Una promesa que resuelve con el evento actualizado o `null` si no se encuentra.
+   * @throws Lanza un error si ocurre algún problema durante la actualización.
+   */
   @Put("{eventoId}")
   @Response(404, "Evento not found")
   public async updateEvento(
@@ -90,6 +123,13 @@ export class EventosController extends Controller {
     }
   }
 
+  /**
+   * Elimina un evento específico.
+   *
+   * @param eventoId - El identificador único del evento que se desea eliminar.
+   * @returns Una promesa que resuelve con un objeto que indica si la eliminación fue exitosa.
+   * @throws Lanza un error si ocurre algún problema durante la operación.
+   */
   @Delete("{eventoId}")
   @Response(404, "Evento not found")
   public async deleteEvento(
@@ -108,6 +148,14 @@ export class EventosController extends Controller {
     }
   }
 
+  /**
+   * Agrega un participante a un evento específico.
+   *
+   * @param eventoId - El identificador único del evento al que se desea agregar el participante.
+   * @param participanteId - El identificador único del participante que se desea agregar al evento.
+   * @returns Una promesa que resuelve con el evento actualizado o `null` si no se encuentra.
+   * @throws Lanza un error si ocurre algún problema durante la operación.
+   */
   @Post("{eventoId}/participantes/{participanteId}")
   @Response(404, "Evento or participant not found")
   public async addParticipante(
@@ -125,6 +173,14 @@ export class EventosController extends Controller {
     }
   }
 
+  /**
+   * Elimina un participante de un evento específico.
+   *
+   * @param eventoId - El identificador único del evento del cual se desea eliminar al participante.
+   * @param participanteId - El identificador único del participante que se desea eliminar del evento.
+   * @returns Una promesa que resuelve con el evento actualizado o `null` si no se encuentra.
+   * @throws Lanza un error si ocurre algún problema durante la eliminación del participante.
+   */
   @Delete("{eventoId}/participantes/{participanteId}")
   @Response(404, "Evento or participant not found")
   public async removeParticipante(

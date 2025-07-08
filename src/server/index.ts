@@ -45,8 +45,11 @@ const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
 
 app.use(errorHandler);
 
-app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use("/docs/feuce", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.listen(3000, () => {
-  console.info("Server is running on http://localhost:3000");
+  console.info("🚀 Server is running on http://localhost:3000");
+  console.info(
+    "📖 API documentation is available at http://localhost:3000/docs/feuce"
+  );
 });

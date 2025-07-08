@@ -21,6 +21,14 @@ import {
 @Tags("Usuarios")
 @Route("usuarios")
 export class UsuariosController extends Controller {
+  /**
+   * Obtiene un usuario específico por su ID.
+   *
+   * @param usuarioId - El identificador único del usuario que se desea obtener.
+   * @param correo - Filtro opcional por correo del usuario.
+   * @returns Una promesa que resuelve con el usuario encontrado o `null` si no se encuentra.
+   * @throws Lanza un error si ocurre algún problema durante la obtención.
+   */
   @Get("{usuarioId}")
   @Response(404, "Usuario not found")
   public async getUsuario(
@@ -35,6 +43,12 @@ export class UsuariosController extends Controller {
     }
   }
 
+  /**
+   * Obtiene todos los usuarios.
+   *
+   * @returns Una promesa que resuelve con una lista de usuarios.
+   * @throws Lanza un error si ocurre algún problema durante la obtención.
+   */
   @Get()
   public async getUsuarios(): Promise<Usuario[]> {
     try {
@@ -45,6 +59,13 @@ export class UsuariosController extends Controller {
     }
   }
 
+  /**
+   * Crea un nuevo usuario.
+   *
+   * @param requestBody - Los datos del usuario a crear.
+   * @returns Una promesa que resuelve con el usuario creado.
+   * @throws Lanza un error si ocurre algún problema durante la creación.
+   */
   @SuccessResponse("201", "Created")
   @Post()
   public async createUsuario(
@@ -59,6 +80,14 @@ export class UsuariosController extends Controller {
     }
   }
 
+  /**
+   * Actualiza un usuario específico.
+   *
+   * @param usuarioId - El identificador único del usuario que se desea actualizar.
+   * @param requestBody - Los datos actualizados del usuario.
+   * @returns Una promesa que resuelve con el usuario actualizado o `null` si no se encuentra.
+   * @throws Lanza un error si ocurre algún problema durante la actualización.
+   */
   @Put("{usuarioId}")
   @Response(404, "Usuario not found")
   public async updateUsuario(
@@ -73,6 +102,13 @@ export class UsuariosController extends Controller {
     }
   }
 
+  /**
+   * Elimina un usuario específico.
+   *
+   * @param usuarioId - El identificador único del usuario que se desea eliminar.
+   * @returns Una promesa que resuelve con un objeto que indica si la eliminación fue exitosa.
+   * @throws Lanza un error si ocurre algún problema durante la operación.
+   */
   @Delete("{usuarioId}")
   @Response(404, "Usuario not found")
   public async deleteUsuario(
