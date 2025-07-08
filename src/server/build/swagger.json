@@ -97,6 +97,12 @@
 					"enlace": {
 						"type": "string"
 					},
+					"etiquetaEnlace": {
+						"type": "string"
+					},
+					"imagen": {
+						"type": "string"
+					},
 					"ubicacion": {
 						"type": "string"
 					},
@@ -159,6 +165,12 @@
 					"enlace": {
 						"type": "string"
 					},
+					"etiquetaEnlace": {
+						"type": "string"
+					},
+					"imagen": {
+						"type": "string"
+					},
 					"ubicacion": {
 						"type": "string"
 					},
@@ -218,6 +230,12 @@
 						"type": "string"
 					},
 					"enlace": {
+						"type": "string"
+					},
+					"etiquetaEnlace": {
+						"type": "string"
+					},
+					"imagen": {
 						"type": "string"
 					},
 					"ubicacion": {

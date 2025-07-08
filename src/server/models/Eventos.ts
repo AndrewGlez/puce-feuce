@@ -10,6 +10,8 @@ export interface Eventos {
   fecha_fin?: Date;
   tipo_evento: string;
   enlace: string;
+  etiquetaEnlace?: string;
+  imagen?: string;
   ubicacion?: string;
   organizador?: mongoose.Types.ObjectId;
   participantes?: mongoose.Types.ObjectId[];
@@ -48,7 +50,8 @@ const EventosSchema = new mongoose.Schema<Eventos>(
         validator: function (this: Eventos, date: Date) {
           return !date || date > this.fecha_inicio;
         },
-        message: "La fecha de finalización debe ser posterior a la fecha de inicio",
+        message:
+          "La fecha de finalización debe ser posterior a la fecha de inicio",
       },
     },
     tipo_evento: {
@@ -68,6 +71,15 @@ const EventosSchema = new mongoose.Schema<Eventos>(
     enlace: {
       type: String,
       required: false,
+    },
+    etiquetaEnlace: {
+      type: String,
+      default: "Más Información",
+      trim: true,
+    },
+    imagen: {
+      type: String,
+      trim: true,
     },
     ubicacion: {
       type: String,

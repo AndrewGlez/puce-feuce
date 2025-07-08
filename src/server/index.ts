@@ -5,6 +5,7 @@ import { RegisterRoutes } from "./build/routes";
 import swaggerUi from "swagger-ui-express";
 import connectDB from "./config/database";
 import morgan from "morgan";
+import cors from "cors";
 import { MongooseError } from "mongoose";
 
 const app = express();
@@ -12,6 +13,7 @@ const app = express();
 app.use(urlencoded({ extended: true }));
 app.use(json());
 app.use(morgan("dev"));
+app.use(cors());
 
 // Conectar con MongoDB
 connectDB();
