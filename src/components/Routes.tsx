@@ -6,6 +6,7 @@ import EventosPage from "./pages/EventosPage";
 import DocumentosPage from "./pages/DocumentosPage";
 import ReclamosPage from "./pages/ReclamosPage";
 import ImpresionesPage from "./pages/ImpresionesPage";
+import AdminPanel from "./pages/AdminPanel";
 
 function MainRouter() {
   return (
@@ -26,6 +27,7 @@ function MainRouter() {
           }
         />
       </Route>
+      <Route path="/admin" element={<AdminPanel />} />
     </Routes>
   );
 }
