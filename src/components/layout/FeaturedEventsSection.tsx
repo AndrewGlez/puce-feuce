@@ -83,6 +83,8 @@ export default function FeaturedEventsSection({
               </div>
               <a
                 href={event.link}
+                target="_blank"
+                rel="noopener noreferrer"
                 className={`font-semibold font-geologica underline underline-offset-2 ${event.linkColor} hover:opacity-80 transition-all flex items-center gap-1`}
               >
                 {event.linkText} <span aria-hidden>→</span>
@@ -92,8 +94,11 @@ export default function FeaturedEventsSection({
         ))}
       </div>
       <button
-        onClick={() => navigate("/eventos")}
-        className="mt-12 px-10 py-3 bg-feuce-primary font-geologica text-white rounded-xl font-normal text-xl shadow-md hover:bg-[#16324A] transition-all"
+        onClick={() => {
+          window.scrollTo({ top: 0, behavior: "instant" });
+          navigate("/eventos");
+        }}
+        className="mt-12 px-10 py-3 cursor-pointer bg-feuce-primary font-geologica text-white rounded-xl font-normal text-xl shadow-md hover:bg-[#16324A] transition-all"
       >
         Ver todos los eventos
       </button>

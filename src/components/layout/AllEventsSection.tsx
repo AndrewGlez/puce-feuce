@@ -1,46 +1,6 @@
 import { IconMoodSad } from "@tabler/icons-react";
-import { asambleaImg, festivalImg, liderazgoImg } from "../../assets";
 import { useEventos } from "../../hooks/useEventos";
 import EventsSkeleton from "../ui/EventsSkeleton";
-
-const events = [
-  {
-    image: asambleaImg,
-    label: "Próximamente",
-    labelColor: "bg-[#16324A] text-white",
-    title: "Asamblea General Estudiantil",
-    date: "15 de Julio, 2025 | 10:00 AM",
-    description:
-      "Reunión semestral para discutir temas importantes para la comunidad estudiantil.",
-    link: "#",
-    linkText: "Más información",
-    linkColor: "text-[#16324A]",
-  },
-  {
-    image: liderazgoImg,
-    label: "Inscripciones Abiertas",
-    labelColor: "bg-[#3B7C3C] text-white",
-    title: "Taller de Liderazgo Estudiantil",
-    date: "20-22 de Julio, 2025 | 14:00 PM",
-    description:
-      "Desarrolla habilidades de liderazgo para tu vida académica y profesional.",
-    link: "#",
-    linkText: "Inscríbete aquí",
-    linkColor: "text-[#3B7C3C]",
-  },
-  {
-    image: festivalImg,
-    label: "Próximamente",
-    labelColor: "bg-[#5B4B7E] text-white",
-    title: "Festival Cultural Universitario",
-    date: "12 de Agosto, 2025 | Todo el día",
-    description:
-      "Celebra la diversidad cultural con música, danza, arte y gastronomía.",
-    link: "#",
-    linkText: "Más Información",
-    linkColor: "text-[#5B4B7E]",
-  },
-];
 
 export default function AllEventsSection() {
   const { data, isLoading } = useEventos();
@@ -81,7 +41,13 @@ export default function AllEventsSection() {
             />
             <div className="flex flex-col flex-1 p-6">
               <div
-                className={`inline-block px-3 py-1 rounded-lg font-geologica font-light mb-3 items-center w-fit`}
+                className={`inline-block px-3 py-1 ${
+                  event.estado === "Próximamente"
+                    ? "bg-[#16324A] text-white"
+                    : event.estado === "Inscripciones Abiertas"
+                    ? "bg-[#3B7C3C] text-white"
+                    : "bg-[#5B4B7E] text-white"
+                } rounded-lg font-geologica font-light  mb-3 items-center w-fit`}
               >
                 <span>{event.estado}</span>
               </div>
@@ -100,6 +66,8 @@ export default function AllEventsSection() {
               </div>
               <a
                 href={event.enlace}
+                target="_blank"
+                rel="noopener noreferrer"
                 className={`font-semibold font-geologica underline underline-offset-2 hover:opacity-80 transition-all flex items-center gap-1`}
               >
                 {event.etiquetaEnlace} <span aria-hidden>→</span>
