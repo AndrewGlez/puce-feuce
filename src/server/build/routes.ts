@@ -66,7 +66,7 @@ const models: TsoaRoute.Models = {
             "ubicacion": {"dataType":"string"},
             "organizador": {"ref":"mongoose.Types.ObjectId"},
             "participantes": {"dataType":"array","array":{"dataType":"refAlias","ref":"mongoose.Types.ObjectId"}},
-            "estado": {"dataType":"union","subSchemas":[{"dataType":"enum","enums":["activo"]},{"dataType":"enum","enums":["cancelado"]},{"dataType":"enum","enums":["finalizado"]}],"required":true},
+            "estado": {"dataType":"union","subSchemas":[{"dataType":"enum","enums":["Inscripciones Abiertas"]},{"dataType":"enum","enums":["Próximamente"]},{"dataType":"enum","enums":["Finalizado"]}],"required":true},
             "createdAt": {"dataType":"datetime"},
             "updatedAt": {"dataType":"datetime"},
         },
@@ -75,7 +75,7 @@ const models: TsoaRoute.Models = {
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "Pick_Eventos.Exclude_keyofEventos._id-or-createdAt-or-updatedAt__": {
         "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"titulo":{"dataType":"string","required":true},"descripcion":{"dataType":"string","required":true},"fecha_inicio":{"dataType":"datetime","required":true},"fecha_fin":{"dataType":"datetime"},"tipo_evento":{"dataType":"string","required":true},"enlace":{"dataType":"string","required":true},"etiquetaEnlace":{"dataType":"string"},"imagen":{"dataType":"string"},"ubicacion":{"dataType":"string"},"organizador":{"ref":"mongoose.Types.ObjectId"},"participantes":{"dataType":"array","array":{"dataType":"refAlias","ref":"mongoose.Types.ObjectId"}},"estado":{"dataType":"union","subSchemas":[{"dataType":"enum","enums":["activo"]},{"dataType":"enum","enums":["cancelado"]},{"dataType":"enum","enums":["finalizado"]}],"required":true}},"validators":{}},
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"titulo":{"dataType":"string","required":true},"descripcion":{"dataType":"string","required":true},"fecha_inicio":{"dataType":"datetime","required":true},"fecha_fin":{"dataType":"datetime"},"tipo_evento":{"dataType":"string","required":true},"enlace":{"dataType":"string","required":true},"etiquetaEnlace":{"dataType":"string"},"imagen":{"dataType":"string"},"ubicacion":{"dataType":"string"},"organizador":{"ref":"mongoose.Types.ObjectId"},"participantes":{"dataType":"array","array":{"dataType":"refAlias","ref":"mongoose.Types.ObjectId"}},"estado":{"dataType":"union","subSchemas":[{"dataType":"enum","enums":["Inscripciones Abiertas"]},{"dataType":"enum","enums":["Próximamente"]},{"dataType":"enum","enums":["Finalizado"]}],"required":true}},"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "Omit_Eventos._id-or-createdAt-or-updatedAt_": {
@@ -90,7 +90,7 @@ const models: TsoaRoute.Models = {
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "Partial_EventoCreationParams_": {
         "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"titulo":{"dataType":"string"},"descripcion":{"dataType":"string"},"fecha_inicio":{"dataType":"datetime"},"fecha_fin":{"dataType":"datetime"},"tipo_evento":{"dataType":"string"},"enlace":{"dataType":"string"},"etiquetaEnlace":{"dataType":"string"},"imagen":{"dataType":"string"},"ubicacion":{"dataType":"string"},"organizador":{"ref":"mongoose.Types.ObjectId"},"participantes":{"dataType":"array","array":{"dataType":"refAlias","ref":"mongoose.Types.ObjectId"}},"estado":{"dataType":"union","subSchemas":[{"dataType":"enum","enums":["activo"]},{"dataType":"enum","enums":["cancelado"]},{"dataType":"enum","enums":["finalizado"]}]}},"validators":{}},
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"titulo":{"dataType":"string"},"descripcion":{"dataType":"string"},"fecha_inicio":{"dataType":"datetime"},"fecha_fin":{"dataType":"datetime"},"tipo_evento":{"dataType":"string"},"enlace":{"dataType":"string"},"etiquetaEnlace":{"dataType":"string"},"imagen":{"dataType":"string"},"ubicacion":{"dataType":"string"},"organizador":{"ref":"mongoose.Types.ObjectId"},"participantes":{"dataType":"array","array":{"dataType":"refAlias","ref":"mongoose.Types.ObjectId"}},"estado":{"dataType":"union","subSchemas":[{"dataType":"enum","enums":["Inscripciones Abiertas"]},{"dataType":"enum","enums":["Próximamente"]},{"dataType":"enum","enums":["Finalizado"]}]}},"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 };

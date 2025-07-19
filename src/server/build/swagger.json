@@ -118,9 +118,9 @@
 					"estado": {
 						"type": "string",
 						"enum": [
-							"activo",
-							"cancelado",
-							"finalizado"
+							"Inscripciones Abiertas",
+							"Próximamente",
+							"Finalizado"
 						]
 					},
 					"createdAt": {
@@ -186,9 +186,9 @@
 					"estado": {
 						"type": "string",
 						"enum": [
-							"activo",
-							"cancelado",
-							"finalizado"
+							"Inscripciones Abiertas",
+							"Próximamente",
+							"Finalizado"
 						]
 					}
 				},
@@ -253,9 +253,9 @@
 					"estado": {
 						"type": "string",
 						"enum": [
-							"activo",
-							"cancelado",
-							"finalizado"
+							"Inscripciones Abiertas",
+							"Próximamente",
+							"Finalizado"
 						]
 					}
 				},

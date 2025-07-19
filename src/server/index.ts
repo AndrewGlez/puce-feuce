@@ -7,6 +7,7 @@ import connectDB from "./config/database";
 import morgan from "morgan";
 import cors from "cors";
 import { MongooseError } from "mongoose";
+import FilesService from "./service/FilesService";
 
 const app = express();
 
@@ -18,7 +19,11 @@ app.use(cors());
 // Conectar con MongoDB
 connectDB();
 
+// Registrar las rutas generadas por tsoa
 RegisterRoutes(app);
+
+// Registrar las rutas estáticas para servir archivos
+app.use(FilesService);
 
 const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
   if (err instanceof ValidateError) {
@@ -36,8 +41,9 @@ const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
     return;
   }
   if (err instanceof Error) {
+    console.error(`Error en la ruta ${req.path}:`, err.message);
     res.status(500).json({
-      message: err.message,
+      message: "Error interno del servidor.",
     });
     return;
   }

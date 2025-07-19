@@ -18,7 +18,7 @@ export interface Eventos {
   ubicacion?: string;
   organizador?: string;
   participantes?: string[];
-  estado: "activo" | "cancelado" | "finalizado";
+  estado: "Próximamente" | "Inscripciones Abiertas" | "Finalizado";
   createdAt?: Date;
   updatedAt?: Date;
 }

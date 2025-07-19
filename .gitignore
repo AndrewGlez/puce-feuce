@@ -26,3 +26,4 @@ dist-ssr
 bun.lock
 package-lock.json
 .env
+src/server/files/uploads/

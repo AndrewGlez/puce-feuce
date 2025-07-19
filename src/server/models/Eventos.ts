@@ -15,7 +15,7 @@ export interface Eventos {
   ubicacion?: string;
   organizador?: mongoose.Types.ObjectId;
   participantes?: mongoose.Types.ObjectId[];
-  estado: "activo" | "cancelado" | "finalizado";
+  estado: "Inscripciones Abiertas" | "Próximamente" | "Finalizado";
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -79,6 +79,7 @@ const EventosSchema = new mongoose.Schema<Eventos>(
     },
     imagen: {
       type: String,
+      required: false,
       trim: true,
     },
     ubicacion: {
@@ -97,8 +98,9 @@ const EventosSchema = new mongoose.Schema<Eventos>(
     ],
     estado: {
       type: String,
-      enum: ["activo", "cancelado", "finalizado"],
-      default: "activo",
+      enum: ["Inscripciones Abiertas", "Próximamente", "Finalizado"],
+      default: "Inscripciones Abiertas",
+      required: true,
     },
   },
   {
