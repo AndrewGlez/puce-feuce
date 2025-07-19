@@ -10,7 +10,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "tsoa": "tsoa spec-and-routes",
-    "dev:all": "concurrently \"vite\" \"bun run --watch src/server/index.ts\""
+    "dev:all": "concurrently \"vite\" \"ts-node-dev --respawn --project src/server/tsconfig.json src/server/index.ts\""
   },
   "dependencies": {
     "@tabler/icons-react": "^3.34.0",
