@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from "react";
 import type { Eventos } from "../../types/Eventos";
 import { useEventos } from "../../hooks/useEventos";
-import { axiosInstance } from "../../services/fetcher";
 import AdminLayout from "../layout/AdminPanel/AdminLayout";
 import AdminEventsSection from "../layout/AdminPanel/AdminEventsSection";
 import AdminEventFormModal from "../layout/AdminPanel/AdminEventFormModal";
+import { axiosInstance } from "../../services/fetcher";
 
 export default function AdminPanel() {
   const [activeTab, setActiveTab] = useState("eventos");
@@ -21,9 +22,11 @@ export default function AdminPanel() {
     ubicacion: "",
     estado: "Inscripciones Abiertas",
   });
+  const [responseError, setResponseError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setResponseError(null);
     try {
       // using axiosInstance for create/update
 
@@ -45,9 +48,13 @@ export default function AdminPanel() {
           estado: "Inscripciones Abiertas",
         });
         mutate();
+        setResponseError(null);
       }
     } catch (error) {
       console.error("Error saving evento:", error);
+      setResponseError(
+        (error as any)?.response?.data?.message || "Error guardando evento."
+      );
     }
   };
 
@@ -166,6 +173,7 @@ export default function AdminPanel() {
           editingEvento={editingEvento}
           onClose={() => setShowForm(false)}
           onSubmit={handleSubmit}
+          responseError={responseError}
         />
       )}
     </AdminLayout>

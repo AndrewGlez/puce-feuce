@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { IconX } from "@tabler/icons-react";
 import { useDropzone } from "react-dropzone";
 import type { Eventos } from "../../../types/Eventos";
+import { DatePicker } from "../../ui";
 
 interface AdminEventFormModalProps {
   formData: Partial<Eventos>;
@@ -10,6 +11,8 @@ interface AdminEventFormModalProps {
   editingEvento: Eventos | null;
   onClose: () => void;
   onSubmit: (e: React.FormEvent, file: File | null) => void;
+  /** Error message from server response */
+  responseError?: string | null;
 }
 
 export default function AdminEventFormModal({
@@ -18,13 +21,54 @@ export default function AdminEventFormModal({
   editingEvento,
   onClose,
   onSubmit,
+  responseError,
 }: AdminEventFormModalProps) {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const formRef = useRef<HTMLFormElement>(null);
   // Configurar zona de arrastre y clic para cargar imagen
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: { "image/*": [] },
     onDrop: (acceptedFiles) => setSelectedImage(acceptedFiles[0] || null),
   });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Validate required fields
+    if (!formData.fecha_inicio) {
+      setErrorMessage("La fecha de inicio es obligatoria.");
+      return;
+    }
+
+    // Validate that start date is not in the past
+    const fechaInicio = new Date(formData.fecha_inicio);
+    const now = new Date();
+    if (fechaInicio < now) {
+      setErrorMessage("La fecha de inicio debe estar en el futuro.");
+      return;
+    }
+
+    // Validate end date if provided
+    if (formData.fecha_fin) {
+      const fechaFin = new Date(formData.fecha_fin);
+      if (fechaFin <= fechaInicio) {
+        setErrorMessage(
+          "La fecha de fin debe ser posterior a la fecha de inicio."
+        );
+        return;
+      }
+    }
+
+    setErrorMessage(null);
+    onSubmit(e, selectedImage);
+  };
+
+  useEffect(() => {
+    if ((responseError || errorMessage) && formRef.current) {
+      formRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [responseError, errorMessage]);
 
   return (
     <AnimatePresence>
@@ -53,10 +97,19 @@ export default function AdminEventFormModal({
             </button>
           </div>
 
-          <form
-            onSubmit={(e) => onSubmit(e, selectedImage)}
-            className="space-y-6"
-          >
+          <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
+            {(responseError || errorMessage) && (
+              <div
+                className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4"
+                role="alert"
+              >
+                <strong className="font-bold">¡Ups!</strong>
+                <span className="block sm:inline">
+                  {" "}
+                  {responseError || errorMessage}
+                </span>
+              </div>
+            )}
             {/* Título */}
             <div>
               <label className="block text-sm font-normal text-gray-700 mb-2">
@@ -91,51 +144,25 @@ export default function AdminEventFormModal({
 
             {/* Fechas */}
             <div className="grid grid-cols-2 gap-6">
-              <div>
-                <label className="block text-sm font-normal text-gray-700 mb-2">
-                  Fecha de Inicio *
-                </label>
-                <input
-                  type="datetime-local"
-                  required
-                  value={
-                    formData.fecha_inicio
-                      ? new Date(formData.fecha_inicio)
-                          .toISOString()
-                          .slice(0, 16)
-                      : ""
-                  }
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      fecha_inicio: new Date(e.target.value),
-                    })
-                  }
-                  className="w-full px-4 py-3 border text-gray-800 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-normal text-gray-700 mb-2">
-                  Fecha de Fin
-                </label>
-                <input
-                  type="datetime-local"
-                  value={
-                    formData.fecha_fin
-                      ? new Date(formData.fecha_fin).toISOString().slice(0, 16)
-                      : ""
-                  }
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      fecha_fin: e.target.value
-                        ? new Date(e.target.value)
-                        : undefined,
-                    })
-                  }
-                  className="w-full px-4 py-3 border text-gray-800 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg"
-                />
-              </div>
+              <DatePicker
+                label="Fecha de Inicio"
+                required
+                value={formData.fecha_inicio}
+                onChange={(date) =>
+                  setFormData({ ...formData, fecha_inicio: date })
+                }
+                minDate={new Date()}
+                includeTime={true}
+              />
+              <DatePicker
+                label="Fecha de Fin"
+                value={formData.fecha_fin}
+                onChange={(date) =>
+                  setFormData({ ...formData, fecha_fin: date })
+                }
+                minDate={formData.fecha_inicio || new Date()}
+                includeTime={true}
+              />
             </div>
 
             {/* Tipo y Estado */}
@@ -261,13 +288,13 @@ export default function AdminEventFormModal({
               <button
                 type="button"
                 onClick={onClose}
-                className="px-6 py-3 text-gray-600 border-2 border-gray-300 rounded-xl hover:bg-gray-50 hover:border-gray-400 transition-all duration-200 font-medium"
+                className="px-6 py-3 cursor-pointer text-gray-600 border-2 border-gray-300 rounded-xl hover:bg-gray-50 hover:border-gray-400 transition-all duration-200 font-medium"
               >
                 Cancelar
               </button>
               <button
                 type="submit"
-                className="px-6 py-3 bg-feuce-primary text-white rounded-xl hover:bg-blue-800 transition-all duration-200 font-medium shadow-lg"
+                className="px-6 py-3 cursor-pointer bg-feuce-primary text-white rounded-xl hover:bg-blue-800 transition-all duration-200 font-medium shadow-lg"
               >
                 {editingEvento ? "Actualizar" : "Crear"} Evento
               </button>

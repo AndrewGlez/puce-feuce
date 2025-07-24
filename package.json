@@ -24,6 +24,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
+    "formik": "^2.4.6",
     "framer-motion": "^12.23.0",
     "lucide-react": "^0.525.0",
     "mongoose": "^8.16.0",
@@ -36,7 +37,8 @@
     "react-router-dom": "^7.6.3",
     "swr": "^2.3.4",
     "tailwindcss": "^4.1.11",
-    "ts-node-dev": "^2.0.0"
+    "ts-node-dev": "^2.0.0",
+    "yup": "^1.6.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
