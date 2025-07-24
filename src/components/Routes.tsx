@@ -11,6 +11,8 @@ import AdminPanel from "./pages/AdminPanel";
 function MainRouter() {
   return (
     <Routes>
+      <Route path="admin" element={<AdminPanel />} />
+
       <Route path="/" element={<AppLayout />}>
         <Route index element={<HomePage />} />
         <Route path="miembros" element={<MiembrosPage />} />
@@ -27,7 +29,6 @@ function MainRouter() {
           }
         />
       </Route>
-      <Route path="/admin" element={<AdminPanel />} />
     </Routes>
   );
 }

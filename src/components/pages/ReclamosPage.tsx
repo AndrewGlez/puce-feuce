@@ -14,7 +14,7 @@ export default function ReclamosPage() {
       </h1>
       <div className="w-full max-w-6xl flex flex-col md:flex-row gap-8 mb-10">
         {/* Chat Anónimo */}
-        <div className="flex-1 bg-[#0a2540] rounded-xl p-8 flex flex-col justify-between text-white shadow-lg min-w-[320px] max-w-[420px]">
+        <div className="flex-1 bg-feuce-primary rounded-xl p-8 flex flex-col justify-between text-white shadow-lg min-w-[320px] max-w-[420px]">
           <div>
             <h2 className="text-2xl font-semibold mb-3 text-white">
               Chat Anónimo
@@ -66,7 +66,7 @@ export default function ReclamosPage() {
         <div className="flex-1 bg-[#eaf3f9] rounded-xl p-6 shadow-lg flex flex-col min-w-[320px] max-w-[600px]">
           <div className="bg-[#eaf3f9] rounded-lg p-4 mb-4">
             <div className="flex items-start gap-2 mb-2">
-              <div className="bg-[#0a2540] rounded-full p-2 flex items-center justify-center">
+              <div className="bg-feuce-primary rounded-full p-2 flex items-center justify-center">
                 <img
                   className="w-6 h-6"
                   src={LogoPlaceholder2}
@@ -81,7 +81,7 @@ export default function ReclamosPage() {
               </div>
             </div>
             <div className="flex items-start gap-2">
-              <div className="bg-[#0a2540] rounded-full p-2 flex items-center justify-center">
+              <div className="bg-feuce-primary rounded-full p-2 flex items-center justify-center">
                 <img
                   className="w-6 h-6"
                   src={LogoPlaceholder2}
@@ -159,7 +159,7 @@ export default function ReclamosPage() {
               disabled={!selectedType}
             />
             <button
-              className="bg-[#0a2540] rounded-full p-3 flex items-center justify-center text-white disabled:opacity-50"
+              className="bg-feuce-primary rounded-full p-3 flex items-center justify-center text-white disabled:opacity-50"
               disabled
               tabIndex={-1}
             >
