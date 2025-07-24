@@ -1,6 +1,7 @@
-import Button from "../ui/Button";
 import { useNavigate } from "react-router";
-import { LogoPlaceholder2 } from "../../assets";
+import Button from "../../ui/Button";
+import { LogoPlaceholder2 } from "../../../assets";
+
 
 export default function HeroSection() {
   const navigate = useNavigate();

@@ -1,4 +1,4 @@
-import React from "react";
+import Card from "../ui/MemberCard";
 
 const teamMembers = [
   {
@@ -35,74 +35,18 @@ const teamMembers = [
   },
 ];
 
-function IconBriefcase(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg width={20} height={20} fill="none" viewBox="0 0 20 20" {...props}>
-      <rect x="3" y="6" width="14" height="10" rx="2" fill="#16324A" />
-      <rect x="7" y="4" width="6" height="4" rx="1" fill="#16324A" />
-    </svg>
-  );
-}
-function IconDepartment(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg width={20} height={20} fill="none" viewBox="0 0 20 20" {...props}>
-      <path d="M10 2L2 7l8 5 8-5-8-5z" fill="#16324A" />
-      <path d="M2 13l8 5 8-5" stroke="#16324A" strokeWidth={1.5} />
-    </svg>
-  );
-}
-function IconMail(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg width={20} height={20} fill="none" viewBox="0 0 20 20" {...props}>
-      <rect x="2" y="5" width="16" height="10" rx="2" fill="#16324A" />
-      <path d="M4 7l6 4 6-4" stroke="#fff" strokeWidth={1.5} />
-    </svg>
-  );
-}
-
 export default function MiembrosPage() {
   return (
-    <section className="w-full min-h-screen bg-[#e5e7eb] flex flex-col items-center py-10">
-      <h2 className="text-4xl md:text-5xl font-bold text-center mb-12 text-[#0A233F] font-geologica">Miembros Directivos</h2>
-      <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-10">
-        {teamMembers.map((member, idx) => (
-          <div
-            key={idx}
-            className="flex flex-col items-center bg-white rounded-2xl shadow-lg overflow-hidden p-0"
-          >
-            <div className="w-full h-64 bg-gray-200 flex items-center justify-center">
-              <img
-                src={member.image}
-                alt={member.name}
-                className="object-cover w-full h-full"
-              />
-            </div>
-            <div className="w-full flex flex-col items-center p-6">
-              <div className="text-2xl font-bold text-[#0A233F] mb-2 text-center">
-                {member.name}
-              </div>
-              <div className="flex flex-col gap-1 w-full max-w-xs">
-                <div className="flex items-center gap-2 text-[#16324A] font-semibold">
-                  <IconBriefcase />
-                  <span>{member.role}</span>
-                </div>
-                <div className="flex items-center gap-2 text-[#16324A] font-semibold">
-                  <IconDepartment />
-                  <span>{member.department}</span>
-                </div>
-                <div className="flex items-center gap-2 text-[#16324A]">
-                  <IconMail />
-                  <a
-                    href={`mailto:${member.email}`}
-                    className="text-[#2563eb] hover:text-[#16324A] no-underline"
-                  >
-                    {member.email}
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
+    <section className="w-full min-h-screen bg-white py-10">
+      <div className="container mx-auto px-8 xl:px-20 2xl:px-8 flex flex-col items-center">
+        <h2 className="text-4xl md:text-5xl font-normal text-center mb-12 text-feuce-hover font-geologica">
+          Miembros Directivos
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 font-geologica">
+          {teamMembers.map((member, idx) => (
+            <Card key={idx} member={member} />
+          ))}
+        </div>
       </div>
     </section>
   );

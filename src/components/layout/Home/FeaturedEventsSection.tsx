@@ -1,8 +1,18 @@
+import { useNavigate } from "react-router";
+import { useEventos } from "../../../hooks/useEventos";
+import EventsSkeleton from "../../ui/EventsSkeleton";
 import { IconMoodSad } from "@tabler/icons-react";
-import { useEventos } from "../../hooks/useEventos";
-import EventsSkeleton from "../ui/EventsSkeleton";
 
-export default function AllEventsSection() {
+// Events are fetched via SWR hook useEventos
+
+interface FeaturedEventsSectionProps {
+  maxEvents?: number;
+}
+
+export default function FeaturedEventsSection({
+  maxEvents = 3,
+}: FeaturedEventsSectionProps) {
+  const navigate = useNavigate();
   const { data, isLoading } = useEventos();
 
   if (isLoading) {
@@ -12,7 +22,7 @@ export default function AllEventsSection() {
     return (
       <section className="w-auto flex flex-col items-center bg-white py-16">
         <h2 className="text-5xl font-normal text-center mb-12 text-feuce-primary font-geologica">
-          Eventos
+          Eventos Destacados
         </h2>
         <div className="flex flex-col space-y-12 items-center my-[10rem]">
           <IconMoodSad className="text-feuce-primary opacity-40 w-[10rem] h-[10rem]" />
@@ -23,16 +33,18 @@ export default function AllEventsSection() {
       </section>
     );
   }
+  const displayedEvents = data.slice(0, maxEvents);
+
   return (
     <section className="w-auto flex flex-col items-center bg-white py-16">
       <h2 className="text-5xl font-normal text-center mb-12 text-feuce-primary font-geologica">
-        Eventos
+        Eventos Destacados
       </h2>
       <div className="w-auto flex flex-col md:flex-row justify-center items-stretch gap-8 max-w-[90vw]">
-        {data?.map((event, idx) => (
+        {displayedEvents.map((event, idx) => (
           <div
             key={idx}
-            className="flex flex-col w-md bg-white rounded-2xl overflow-hidden flex-1 shadow-[0_8px_24px_0_rgba(44,62,80,0.10),0_16px_40px_0_rgba(44,62,80,0.13)]"
+            className="flex flex-col bg-white rounded-2xl overflow-hidden flex-1 shadow-[0_8px_24px_0_rgba(44,62,80,0.10),0_16px_40px_0_rgba(44,62,80,0.13)]"
           >
             <img
               src={event.imagen}
@@ -47,7 +59,7 @@ export default function AllEventsSection() {
                     : event.estado === "Inscripciones Abiertas"
                     ? "bg-[#3B7C3C] text-white"
                     : "bg-[#5B4B7E] text-white"
-                } rounded-lg font-geologica font-light  mb-3 items-center w-fit`}
+                } rounded-lg font-geologica font-light mb-3 items-center w-fit`}
               >
                 <span>{event.estado}</span>
               </div>
@@ -68,7 +80,7 @@ export default function AllEventsSection() {
                 href={event.enlace}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`font-semibold font-geologica underline underline-offset-2 hover:opacity-80 transition-all flex items-center gap-1`}
+                className="font-semibold font-geologica underline underline-offset-2 hover:opacity-80 transition-all flex items-center gap-1"
               >
                 {event.etiquetaEnlace} <span aria-hidden>→</span>
               </a>
@@ -76,6 +88,15 @@ export default function AllEventsSection() {
           </div>
         ))}
       </div>
+      <button
+        onClick={() => {
+          window.scrollTo({ top: 0, behavior: "instant" });
+          navigate("/eventos");
+        }}
+        className="mt-12 px-10 py-3 cursor-pointer bg-feuce-primary font-geologica text-white rounded-xl font-normal text-xl shadow-md hover:bg-[#16324A] transition-all"
+      >
+        Ver todos los eventos
+      </button>
     </section>
   );
 }

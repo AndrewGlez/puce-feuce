@@ -1,4 +1,4 @@
-import AllEventsSection from "../layout/AllEventsSection";
+import AllEventsSection from "../layout/Eventos/AllEventsSection";
 
 export default function EventosPage() {
   return (

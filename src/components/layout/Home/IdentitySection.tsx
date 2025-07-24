@@ -1,5 +1,5 @@
-import MissionIcon from "../../assets/mission-icon";
-import VisionIcon from "../../assets/vision-icon";
+import MissionIcon from "../../../assets/mission-icon";
+import VisionIcon from "../../../assets/vision-icon";
 
 export default function IdentitySection() {
   return (

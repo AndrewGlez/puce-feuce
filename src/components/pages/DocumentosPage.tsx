@@ -1,3 +1,6 @@
+import FileIcon from "../../assets/FileIcon";
+import DownloadIcon from "../../assets/DownloadIcon";
+
 const documentos = [
   {
     categoria: "Reglamentos",
@@ -8,26 +11,6 @@ const documentos = [
         peso: "240 KB",
         fecha: "7 de Julio 2025",
         color: "#16324A",
-        icon: (
-          <svg width="32" height="32" fill="none" viewBox="0 0 24 24">
-            <rect width="24" height="24" rx="6" fill="#16324A" />
-            <path
-              d="M8.5 7.5h7M8.5 10.5h7M8.5 13.5h4"
-              stroke="#fff"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-            />
-            <rect
-              x="5"
-              y="5"
-              width="14"
-              height="14"
-              rx="2"
-              stroke="#fff"
-              strokeWidth="1.5"
-            />
-          </svg>
-        ),
         link: `/src/assets/REGLAMENTO DE-LA-PONTIFICIA-UNIVERSIDAD-CATOLICA-2018.pdf`,
         disponible: true,
       },
@@ -37,26 +20,6 @@ const documentos = [
         peso: null,
         fecha: "7 de Julio 2025",
         color: "#16324A",
-        icon: (
-          <svg width="32" height="32" fill="none" viewBox="0 0 24 24">
-            <rect width="24" height="24" rx="6" fill="#16324A" />
-            <path
-              d="M8.5 7.5h7M8.5 10.5h7M8.5 13.5h4"
-              stroke="#fff"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-            />
-            <rect
-              x="5"
-              y="5"
-              width="14"
-              height="14"
-              rx="2"
-              stroke="#fff"
-              strokeWidth="1.5"
-            />
-          </svg>
-        ),
         link: null,
         disponible: false,
       },
@@ -71,26 +34,6 @@ const documentos = [
         peso: "218 KB",
         fecha: "7 de Julio 2025",
         color: "#3B7C3C",
-        icon: (
-          <svg width="32" height="32" fill="none" viewBox="0 0 24 24">
-            <rect width="24" height="24" rx="6" fill="#3B7C3C" />
-            <path
-              d="M8.5 7.5h7M8.5 10.5h7M8.5 13.5h4"
-              stroke="#fff"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-            />
-            <rect
-              x="5"
-              y="5"
-              width="14"
-              height="14"
-              rx="2"
-              stroke="#fff"
-              strokeWidth="1.5"
-            />
-          </svg>
-        ),
         link: `/src/assets/INSTRUCTIVO_DE_REGIMEN_ECONOMICO_Y_BECAS.pdf`,
         disponible: true,
       },
@@ -100,26 +43,6 @@ const documentos = [
         peso: "1.0 MB",
         fecha: "7 de Julio 2025",
         color: "#3B7C3C",
-        icon: (
-          <svg width="32" height="32" fill="none" viewBox="0 0 24 24">
-            <rect width="24" height="24" rx="6" fill="#3B7C3C" />
-            <path
-              d="M8.5 7.5h7M8.5 10.5h7M8.5 13.5h4"
-              stroke="#fff"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-            />
-            <rect
-              x="5"
-              y="5"
-              width="14"
-              height="14"
-              rx="2"
-              stroke="#fff"
-              strokeWidth="1.5"
-            />
-          </svg>
-        ),
         link: `/src/assets/Manual-acceso-Solicitud-Tramites-PUCE.pdf`,
         disponible: true,
       },
@@ -134,26 +57,6 @@ const documentos = [
         peso: "2.9 MB",
         fecha: "7 de Julio 2025",
         color: "#B85C1C",
-        icon: (
-          <svg width="32" height="32" fill="none" viewBox="0 0 24 24">
-            <rect width="24" height="24" rx="6" fill="#B85C1C" />
-            <path
-              d="M8.5 7.5h7M8.5 10.5h7M8.5 13.5h4"
-              stroke="#fff"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-            />
-            <rect
-              x="5"
-              y="5"
-              width="14"
-              height="14"
-              rx="2"
-              stroke="#fff"
-              strokeWidth="1.5"
-            />
-          </svg>
-        ),
         link: `/src/assets/codigo-de-etica-y-convivencia_20250202.pdf`,
         disponible: true,
       },
@@ -163,26 +66,6 @@ const documentos = [
         peso: "11 MB",
         fecha: "7 de Julio 2025",
         color: "#B85C1C",
-        icon: (
-          <svg width="32" height="32" fill="none" viewBox="0 0 24 24">
-            <rect width="24" height="24" rx="6" fill="#B85C1C" />
-            <path
-              d="M8.5 7.5h7M8.5 10.5h7M8.5 13.5h4"
-              stroke="#fff"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-            />
-            <rect
-              x="5"
-              y="5"
-              width="14"
-              height="14"
-              rx="2"
-              stroke="#fff"
-              strokeWidth="1.5"
-            />
-          </svg>
-        ),
         link: `/src/assets/Reglamento_General_de_Personal_Acad_actualizado.pdf`,
         disponible: true,
       },
@@ -190,25 +73,10 @@ const documentos = [
   },
 ];
 
-function DownloadIcon() {
-  return (
-    <svg width="28" height="28" fill="none" viewBox="0 0 24 24">
-      <path
-        d="M12 4v12m0 0l-4-4m4 4l4-4"
-        stroke="#16324A"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <rect x="4" y="18" width="16" height="2" rx="1" fill="#16324A" />
-    </svg>
-  );
-}
-
 export default function DocumentosPage() {
   return (
     <section className="w-full font-geologica flex flex-col items-center py-10 bg-white">
-      <h2 className="text-4xl md:text-5xl font-normal text-center mb-12 text-feuce-primary">
+      <h2 className="text-3xl md:text-4xl font-normal text-center mb-12 text-feuce-primary">
         Documentos Importantes
       </h2>
       <div className="w-full max-w-5xl flex flex-col gap-10">
@@ -223,7 +91,9 @@ export default function DocumentosPage() {
                   key={j}
                   className="flex items-center bg-white border border-neutral-300 rounded-lg p-4 gap-4"
                 >
-                  <div>{doc.icon}</div>
+                  <div>
+                    <FileIcon color={doc.color} size={32} />
+                  </div>
                   <div className="flex-1">
                     <div className="font-normal text-feuce-primary">
                       {doc.nombre}

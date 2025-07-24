@@ -1,4 +1,4 @@
-import Card from "../ui/MemberCard";
+import Card from "../../ui/MemberCard";
 
 const teamMembers = [
   {
@@ -34,9 +34,9 @@ const teamMembers = [
       "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face",
   },
 ];
-export default function MemberSection({ style = "" }: { style?: string }) {
+export default function MemberSection() {
   return (
-    <section className={`py-10 bg-[#D9D9D9] ${style}`}>
+    <section className={`py-10 bg-[#D9D9D9] font-geologica`}>
       <div className="container mx-auto px-8 xl:px-20 2xl:px-8">
         <h2 className="text-5xl 2xl:text-5xl font-normal text-center mb-16 text-feuce-primary">
           Miembros Directivos

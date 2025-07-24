@@ -1,7 +1,7 @@
-import EquityIcon from "../../assets/equity-icon";
-import InnovationIcon from "../../assets/innovation-icon";
-import IntegrityIcon from "../../assets/integrity-icon";
-import SolidarityIcon from "../../assets/solidarity-icon";
+import EquityIcon from "../../../assets/equity-icon";
+import InnovationIcon from "../../../assets/innovation-icon";
+import IntegrityIcon from "../../../assets/integrity-icon";
+import SolidarityIcon from "../../../assets/solidarity-icon";
 
 export default function ValuesSection() {
   return (
