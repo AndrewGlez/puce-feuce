@@ -41,23 +41,9 @@ export default function AdminEventFormModal({
       return;
     }
 
-    // Validate that start date is not in the past
-    const fechaInicio = new Date(formData.fecha_inicio);
-    const now = new Date();
-    if (fechaInicio < now) {
-      setErrorMessage("La fecha de inicio debe estar en el futuro.");
+    if (!formData.fecha_fin) {
+      setErrorMessage("La fecha de fin es obligatoria.");
       return;
-    }
-
-    // Validate end date if provided
-    if (formData.fecha_fin) {
-      const fechaFin = new Date(formData.fecha_fin);
-      if (fechaFin <= fechaInicio) {
-        setErrorMessage(
-          "La fecha de fin debe ser posterior a la fecha de inicio."
-        );
-        return;
-      }
     }
 
     setErrorMessage(null);
@@ -151,7 +137,6 @@ export default function AdminEventFormModal({
                 onChange={(date) =>
                   setFormData({ ...formData, fecha_inicio: date })
                 }
-                minDate={new Date()}
                 includeTime={true}
               />
               <DatePicker
@@ -160,7 +145,6 @@ export default function AdminEventFormModal({
                 onChange={(date) =>
                   setFormData({ ...formData, fecha_fin: date })
                 }
-                minDate={formData.fecha_inicio || new Date()}
                 includeTime={true}
               />
             </div>

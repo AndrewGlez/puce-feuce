@@ -87,7 +87,7 @@ export class EventosService {
 
       return await EventosModel.findByIdAndUpdate(id, updateParams, {
         new: true,
-        runValidators: true,
+        runValidators: false,
       })
         .populate("organizador participantes")
         .exec();

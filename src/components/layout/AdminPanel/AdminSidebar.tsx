@@ -49,7 +49,7 @@ export default function AdminSidebar({
               )}
               <button
                 onClick={() => setActiveTab("eventos")}
-                className={`relative z-10 w-full flex items-center px-6 py-4 rounded-xl transition-colors duration-200 ${
+                className={`cursor-pointer relative z-10 w-full flex items-center px-6 py-4 rounded-xl transition-colors duration-200 ${
                   activeTab === "eventos"
                     ? "text-white"
                     : "text-gray-300 hover:text-white"
@@ -71,7 +71,7 @@ export default function AdminSidebar({
               )}
               <button
                 onClick={() => setActiveTab("documentos")}
-                className={`relative z-10 w-full flex items-center px-6 py-4 rounded-xl transition-colors duration-200 ${
+                className={`cursor-pointer relative z-10 w-full flex items-center px-6 py-4 rounded-xl transition-colors duration-200 ${
                   activeTab === "documentos"
                     ? "text-white"
                     : "text-gray-300 hover:text-white"
@@ -93,7 +93,7 @@ export default function AdminSidebar({
               )}
               <button
                 onClick={() => setActiveTab("miembros")}
-                className={`relative z-10 w-full flex items-center px-6 py-4 rounded-xl transition-colors duration-200 ${
+                className={`cursor-pointer relative z-10 w-full flex items-center px-6 py-4 rounded-xl transition-colors duration-200 ${
                   activeTab === "miembros"
                     ? "text-white"
                     : "text-gray-300 hover:text-white"
@@ -115,7 +115,7 @@ export default function AdminSidebar({
               )}
               <button
                 onClick={() => setActiveTab("codigos")}
-                className={`relative z-10 w-full flex items-center px-6 py-4 rounded-xl transition-colors duration-200 ${
+                className={`cursor-pointer relative z-10 w-full flex items-center px-6 py-4 rounded-xl transition-colors duration-200 ${
                   activeTab === "codigos"
                     ? "text-white"
                     : "text-gray-300 hover:text-white"

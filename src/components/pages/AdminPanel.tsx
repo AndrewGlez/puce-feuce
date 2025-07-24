@@ -24,17 +24,43 @@ export default function AdminPanel() {
   });
   const [responseError, setResponseError] = useState<string | null>(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent, file: File | null) => {
     e.preventDefault();
     setResponseError(null);
     try {
       // using axiosInstance for create/update
 
       // perform create or update via axios
+      // convert JS Date fields to ISO strings before sending
+      const payload = {
+        ...formData,
+        fecha_inicio: (formData.fecha_inicio as Date).toISOString(),
+        ...(formData.fecha_fin && {
+          fecha_fin: (formData.fecha_fin as Date).toISOString(),
+        }),
+      };
       const result = editingEvento
-        ? await axiosInstance.put(`/eventos/${editingEvento._id}`, formData)
-        : await axiosInstance.post("/eventos", formData);
+        ? await axiosInstance.put(`/eventos/${editingEvento._id}`, payload)
+        : await axiosInstance.post("/eventos", payload);
       if (result.status === 200 || result.status === 201) {
+        // If it's a new event and an image file is selected, upload it
+        if (!editingEvento && file) {
+          try {
+            const formDataImg = new FormData();
+            formDataImg.append("file", file);
+            await axiosInstance.post(
+              `/${result.data._id}/upload`,
+              formDataImg,
+              { headers: { "Content-Type": "multipart/form-data" } }
+            );
+          } catch (uploadError) {
+            console.error("Error uploading image:", uploadError);
+            setResponseError(
+              (uploadError as any)?.response?.data?.message ||
+                "Error subiendo imagen."
+            );
+          }
+        }
         setShowForm(false);
         setEditingEvento(null);
         setFormData({
@@ -171,7 +197,10 @@ export default function AdminPanel() {
           formData={formData}
           setFormData={setFormData}
           editingEvento={editingEvento}
-          onClose={() => setShowForm(false)}
+          onClose={() => {
+            setShowForm(false);
+            setResponseError(null);
+          }}
           onSubmit={handleSubmit}
           responseError={responseError}
         />
