@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { IconMenu } from "@tabler/icons-react";
+import { IconMenu, IconSettings, IconUser } from "@tabler/icons-react";
 import { useNavigate } from "react-router";
 
 export default function Navbar() {
@@ -33,6 +33,14 @@ export default function Navbar() {
             {link.name}
           </button>
         ))}
+        {/* Botón Admin con icono */}
+        <button
+          onClick={() => (window.location.href = "/admin")}
+          className="p-2 text-white cursor-pointer hover:text-slate-400 transition-colors"
+          aria-label="Admin"
+        >
+          <IconUser className="w-5 h-5" />
+        </button>
       </div>
 
       {/* Botón Hamburguesa */}
@@ -93,6 +101,20 @@ export default function Navbar() {
                     {link.name}
                   </motion.button>
                 ))}
+                {/* Botón Admin móvil con icono */}
+                <motion.button
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.8, duration: 0.3 }}
+                  className="px-6 py-4 transition-colors border-b"
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    navigate("/admin");
+                  }}
+                  aria-label="Admin"
+                >
+                  <IconUser className="w-6 h-6 text-white hover:text-slate-200" />
+                </motion.button>
               </div>
             </motion.div>
           </>

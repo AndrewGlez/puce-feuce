@@ -32,8 +32,10 @@ const fileFilter = (
 
 const upload = multer({ storage: storage, fileFilter });
 
-router.use("/uploads", express.static(path.join(__dirname, "uploads")));
-
+router.use(
+  "/uploads",
+  express.static(path.resolve(__dirname, "../files/uploads"))
+);
 router.post(
   "/:eventId/upload",
   upload.single("file"),
