@@ -3,6 +3,7 @@ import express from "express";
 import multer from "multer";
 import path from "path";
 import EventosModel from "../models/Eventos";
+import DocumentoModel from "../models/Documentos";
 
 const router = express.Router();
 
@@ -71,6 +72,59 @@ router.post(
       });
     } catch (error) {
       console.error("Error updating event with file path:", error);
+      res.status(500).send({ message: "Error interno del servidor." });
+    }
+  }
+);
+
+// Rutas para documentos
+const storageDocs = multer.diskStorage({
+  destination: function (
+    req: express.Request,
+    file: Express.Multer.File,
+    cb: (error: Error | null, destination: string) => void
+  ) {
+    cb(null, path.resolve(__dirname, "../files/docs"));
+  },
+  filename: function (req, file, cb) {
+    const randomName =
+      Date.now() + "-" + randomUUID() + path.extname(file.originalname);
+    cb(null, randomName);
+  },
+});
+const uploadDoc = multer({ storage: storageDocs });
+
+router.use("/docs", express.static(path.resolve(__dirname, "../files/docs")));
+router.post(
+  "/docs/:docId/upload",
+  uploadDoc.single("file"),
+  async (req: express.Request, res: express.Response): Promise<void> => {
+    const { docId } = req.params;
+    if (!req.file) {
+      res.status(400).send({ message: "No se subió ningún archivo." });
+      return;
+    }
+    if (!docId) {
+      res.status(400).send({ message: "Se requiere el ID del documento." });
+      return;
+    }
+    try {
+      const updatedDoc = await DocumentoModel.findByIdAndUpdate(
+        docId,
+        { $set: { archivo: `/docs/${req.file.filename}` } },
+        { new: true, runValidators: true }
+      );
+      if (!updatedDoc) {
+        res.status(404).send({ message: "Documento no encontrado." });
+        return;
+      }
+      res.json({
+        message: "Archivo subido y asociado con el documento exitosamente.",
+        fileUrl: `/docs/${req.file.filename}`,
+        document: updatedDoc,
+      });
+    } catch (error) {
+      console.error("Error updating document with file path:", error);
       res.status(500).send({ message: "Error interno del servidor." });
     }
   }
