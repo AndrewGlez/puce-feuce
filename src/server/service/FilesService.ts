@@ -4,6 +4,7 @@ import multer from "multer";
 import path from "path";
 import EventosModel from "../models/Eventos";
 import DocumentoModel from "../models/Documentos";
+import MiembroModel from "../models/Miembro";
 
 const router = express.Router();
 
@@ -125,6 +126,69 @@ router.post(
       });
     } catch (error) {
       console.error("Error updating document with file path:", error);
+      res.status(500).send({ message: "Error interno del servidor." });
+    }
+  }
+);
+
+// Rutas para miembros
+const storageMembers = multer.diskStorage({
+  destination: function (
+    req: express.Request,
+    file: Express.Multer.File,
+    cb: (error: Error | null, destination: string) => void
+  ) {
+    cb(null, path.resolve(__dirname, "../files/members"));
+  },
+  filename: function (req, file, cb) {
+    const randomName =
+      Date.now() + "-" + randomUUID() + path.extname(file.originalname);
+    cb(null, randomName);
+  },
+});
+
+const fileFilterMembers = (
+  req: express.Request,
+  file: Express.Multer.File,
+  cb: multer.FileFilterCallback
+) => {
+  if (file.mimetype.startsWith("image/")) cb(null, true);
+  else cb(null, false);
+};
+
+const uploadMember = multer({ storage: storageMembers, fileFilter: fileFilterMembers });
+
+router.use("/members", express.static(path.resolve(__dirname, "../files/members")));
+router.post(
+  "/members/:memberId/upload",
+  uploadMember.single("file"),
+  async (req: express.Request, res: express.Response): Promise<void> => {
+    const { memberId } = req.params;
+    if (!req.file) {
+      res.status(400).send({ message: "No se subió ningún archivo." });
+      return;
+    }
+    if (!memberId) {
+      res.status(400).send({ message: "Se requiere el ID del miembro." });
+      return;
+    }
+    try {
+      const updatedMember = await MiembroModel.findByIdAndUpdate(
+        memberId,
+        { $set: { image: `/members/${req.file.filename}` } },
+        { new: true, runValidators: true }
+      );
+      if (!updatedMember) {
+        res.status(404).send({ message: "Miembro no encontrado." });
+        return;
+      }
+      res.json({
+        message: "Imagen subida y asociada con el miembro exitosamente.",
+        fileUrl: `/members/${req.file.filename}`,
+        member: updatedMember,
+      });
+    } catch (error) {
+      console.error("Error updating member with image path:", error);
       res.status(500).send({ message: "Error interno del servidor." });
     }
   }

@@ -5,7 +5,7 @@ export default function Card({
   member,
 }: {
   member: {
-    image: string;
+    image?: string;
     name: string;
     role?: string;
     department?: string;
@@ -14,11 +14,17 @@ export default function Card({
 }) {
   return (
     <div className="relative flex flex-col justify-center shadow-md hover:shadow-lg items-center rounded-lg transition-shadow duration-300">
-      <img
-        src={member.image}
-        alt={member.name}
-        className="object-cover mb-20 w-full h-full rounded-t-sm rounded-b-xl"
-      />
+      {member.image ? (
+        <img
+          src={member.image}
+          alt={member.name}
+          className="object-cover mb-20 w-full h-full rounded-t-sm rounded-b-xl"
+        />
+      ) : (
+        <div className="w-full h-48 bg-gray-200 mb-20 rounded-t-sm rounded-b-xl flex items-center justify-center">
+          <span className="text-gray-500 text-lg">Sin foto</span>
+        </div>
+      )}
       <div className="absolute shadow-md hover:shadow-lg bottom-0 flex flex-col w-full justify-center p-[9px] text-center rounded-lg bg-white">
         <h3 className="text-lg xl:text-xl 2xl:text-2xl font-normal text-gray-800">
           {member.name}
