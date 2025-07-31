@@ -3,6 +3,7 @@ import LogoPlaceholder2 from "./logo-2-placeholder.png";
 import liderazgoImg from "./Taller de Liderazgo Estudiantil.jpg";
 import asambleaImg from "./Asamble de estudiantes.jpeg";
 import festivalImg from "./Festival Cultural Universitario.jpg";
+import QrCode from "./QR_Reclamos_Impresiones.svg";
 
 export {
   LogoPlaceholder,
@@ -10,4 +11,5 @@ export {
   liderazgoImg,
   asambleaImg,
   festivalImg,
+  QrCode,
 };
