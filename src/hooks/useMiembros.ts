@@ -7,5 +7,9 @@ import { fetcher } from "../services/fetcher";
  * desde el endpoint "/miembros".
  */
 export function useMiembros() {
-  return useSWR<Miembro[]>("/miembros", fetcher);
+  return useSWR<Miembro[]>("/miembros", fetcher, {
+    revalidateOnFocus: false,
+    revalidateOnReconnect: true,
+    refreshInterval: 0,
+  });
 } 

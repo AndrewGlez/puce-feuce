@@ -8,13 +8,28 @@ import MiembroModel from "../models/Miembro";
 
 const router = express.Router();
 
+import fs from "fs";
+
+// Asegurar que los directorios existan
+const uploadsDir = path.resolve(__dirname, "../files/uploads/");
+const docsDir = path.resolve(__dirname, "../files/docs/");
+const membersDir = path.resolve(__dirname, "../files/members/");
+
+// Crear directorios si no existen
+[uploadsDir, docsDir, membersDir].forEach(dir => {
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+    console.log(`Created directory: ${dir}`);
+  }
+});
+
 const storage = multer.diskStorage({
   destination: function (
     req: express.Request,
     file: Express.Multer.File,
     cb: (error: Error | null, destination: string) => void
   ) {
-    cb(null, path.resolve(__dirname, "../files/uploads/"));
+    cb(null, uploadsDir);
   },
   filename: function (req, file, cb) {
     const randomName =
@@ -36,7 +51,7 @@ const upload = multer({ storage: storage, fileFilter });
 
 router.use(
   "/uploads",
-  express.static(path.resolve(__dirname, "../files/uploads"))
+  express.static(uploadsDir)
 );
 router.post(
   "/:eventId/upload",
@@ -73,7 +88,15 @@ router.post(
       });
     } catch (error) {
       console.error("Error updating event with file path:", error);
-      res.status(500).send({ message: "Error interno del servidor." });
+      console.error("Error details:", {
+        eventId,
+        filename: req_.file?.filename,
+        error: error instanceof Error ? error.message : error
+      });
+      res.status(500).send({ 
+        message: "Error interno del servidor.",
+        details: error instanceof Error ? error.message : "Unknown error"
+      });
     }
   }
 );
@@ -85,7 +108,7 @@ const storageDocs = multer.diskStorage({
     file: Express.Multer.File,
     cb: (error: Error | null, destination: string) => void
   ) {
-    cb(null, path.resolve(__dirname, "../files/docs"));
+    cb(null, docsDir);
   },
   filename: function (req, file, cb) {
     const randomName =
@@ -95,7 +118,7 @@ const storageDocs = multer.diskStorage({
 });
 const uploadDoc = multer({ storage: storageDocs });
 
-router.use("/docs", express.static(path.resolve(__dirname, "../files/docs")));
+router.use("/docs", express.static(docsDir));
 router.post(
   "/docs/:docId/upload",
   uploadDoc.single("file"),
@@ -126,7 +149,15 @@ router.post(
       });
     } catch (error) {
       console.error("Error updating document with file path:", error);
-      res.status(500).send({ message: "Error interno del servidor." });
+      console.error("Error details:", {
+        docId,
+        filename: req.file?.filename,
+        error: error instanceof Error ? error.message : error
+      });
+      res.status(500).send({ 
+        message: "Error interno del servidor.",
+        details: error instanceof Error ? error.message : "Unknown error"
+      });
     }
   }
 );
@@ -138,7 +169,7 @@ const storageMembers = multer.diskStorage({
     file: Express.Multer.File,
     cb: (error: Error | null, destination: string) => void
   ) {
-    cb(null, path.resolve(__dirname, "../files/members"));
+    cb(null, membersDir);
   },
   filename: function (req, file, cb) {
     const randomName =
@@ -158,7 +189,7 @@ const fileFilterMembers = (
 
 const uploadMember = multer({ storage: storageMembers, fileFilter: fileFilterMembers });
 
-router.use("/members", express.static(path.resolve(__dirname, "../files/members")));
+router.use("/members", express.static(membersDir));
 router.post(
   "/members/:memberId/upload",
   uploadMember.single("file"),

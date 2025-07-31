@@ -64,7 +64,7 @@ export default function AdminMiembrosSection({
                   <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
                     {miembro.image ? (
                       <img
-                        src={miembro.image}
+                        src={`http://localhost:3000${miembro.image}`}
                         alt={miembro.name}
                         className="w-10 h-10 rounded-full object-cover"
                       />

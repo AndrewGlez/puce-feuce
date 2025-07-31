@@ -58,11 +58,13 @@ export default function AdminPanel() {
   });
   
   const [responseError, setResponseError] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Handlers para eventos
   const handleEventSubmit = async (e: React.FormEvent, file: File | null) => {
     e.preventDefault();
     setResponseError(null);
+    setIsSubmitting(true);
     try {
       const payload = {
         ...eventFormData,
@@ -75,21 +77,24 @@ export default function AdminPanel() {
         ? await axiosInstance.put(`/eventos/${editingEvento._id}`, payload)
         : await axiosInstance.post("/eventos", payload);
       if (result.status === 200 || result.status === 201) {
-        if (!editingEvento && file) {
+        // Subir imagen si se seleccionó un archivo (tanto para crear como para editar)
+        if (file) {
           try {
             const formDataImg = new FormData();
             formDataImg.append("file", file);
-            await axiosInstance.post(
+            const uploadResult = await axiosInstance.post(
               `/${result.data._id}/upload`,
               formDataImg,
               { headers: { "Content-Type": "multipart/form-data" } }
             );
+            console.log("Imagen de evento subida exitosamente:", uploadResult.data);
           } catch (uploadError) {
             console.error("Error uploading image:", uploadError);
             setResponseError(
               (uploadError as any)?.response?.data?.message ||
                 "Error subiendo imagen."
             );
+            return; // No continuar si hay error en la subida
           }
         }
         setShowEventForm(false);
@@ -104,7 +109,25 @@ export default function AdminPanel() {
           ubicacion: "",
           estado: "Inscripciones Abiertas",
         });
-        mutateEventos();
+        // Cerrar modal y limpiar formulario
+        setShowEventForm(false);
+        setEditingEvento(null);
+        setEventFormData({
+          titulo: "",
+          descripcion: "",
+          fecha_inicio: new Date(),
+          tipo_evento: "conferencia",
+          enlace: "",
+          etiquetaEnlace: "Más Información",
+          ubicacion: "",
+          estado: "Inscripciones Abiertas",
+        });
+        
+        // Actualizar los datos con un pequeño delay para asegurar que el servidor procese la imagen
+        setTimeout(() => {
+          mutateEventos();
+        }, 500);
+        
         setResponseError(null);
       }
     } catch (error) {
@@ -112,6 +135,8 @@ export default function AdminPanel() {
       setResponseError(
         (error as any)?.response?.data?.message || "Error guardando evento."
       );
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -119,9 +144,11 @@ export default function AdminPanel() {
   const handleDocumentoSubmit = async (e: React.FormEvent, file: File | null) => {
     e.preventDefault();
     setResponseError(null);
+    setIsSubmitting(true);
     
     if (!editingDocumento && !file) {
       setResponseError("Debe seleccionar un archivo para crear un nuevo documento.");
+      setIsSubmitting(false);
       return;
     }
     
@@ -136,6 +163,29 @@ export default function AdminPanel() {
         const result = await axiosInstance.put(`/documentos/${editingDocumento._id}`, payload);
         
         if (result.status === 200) {
+          // Subir archivo si se seleccionó uno nuevo
+          if (file) {
+            try {
+              const formDataFile = new FormData();
+              formDataFile.append("file", file);
+              const uploadResult = await axiosInstance.post(
+                `/docs/${editingDocumento._id}/upload`,
+                formDataFile,
+                { headers: { "Content-Type": "multipart/form-data" } }
+              );
+              console.log("Archivo de documento subido exitosamente:", uploadResult.data);
+            } catch (uploadError) {
+              console.error("Error uploading file:", uploadError);
+              setResponseError(
+                (uploadError as any)?.response?.data?.message ||
+                  "Error subiendo archivo."
+              );
+              setIsSubmitting(false);
+              return;
+            }
+          }
+          
+          // Cerrar modal y limpiar formulario
           setShowDocumentoForm(false);
           setEditingDocumento(null);
           setDocumentoFormData({
@@ -145,19 +195,21 @@ export default function AdminPanel() {
             fecha: new Date(),
             disponible: true,
           });
-          mutateDocumentos();
+          
+          // Actualizar los datos con un pequeño delay para asegurar que el servidor procese el archivo
+          setTimeout(() => {
+            mutateDocumentos();
+          }, 500);
+          
           setResponseError(null);
         }
       } else {
         // Crear nuevo documento con archivo
         if (!file) {
           setResponseError("Debe seleccionar un archivo.");
+          setIsSubmitting(false);
           return;
         }
-        
-        // Primero subir el archivo
-        const formDataFile = new FormData();
-        formDataFile.append("file", file);
         
         // Crear un documento temporal con un nombre de archivo
         const tempFileName = `temp_${Date.now()}_${file.name}`;
@@ -170,22 +222,27 @@ export default function AdminPanel() {
         const result = await axiosInstance.post("/documentos", payload);
         
         if (result.status === 201) {
-                      // Ahora subir el archivo real
-            try {
-              await axiosInstance.post(
-                `/docs/${result.data._id}/upload`,
-                formDataFile,
-                { headers: { "Content-Type": "multipart/form-data" } }
-              );
-            } catch (uploadError) {
+          // Ahora subir el archivo real
+          try {
+            const formDataFile = new FormData();
+            formDataFile.append("file", file);
+            const uploadResult = await axiosInstance.post(
+              `/docs/${result.data._id}/upload`,
+              formDataFile,
+              { headers: { "Content-Type": "multipart/form-data" } }
+            );
+            console.log("Archivo de documento subido exitosamente:", uploadResult.data);
+          } catch (uploadError) {
             console.error("Error uploading file:", uploadError);
             setResponseError(
               (uploadError as any)?.response?.data?.message ||
                 "Error subiendo archivo."
             );
+            setIsSubmitting(false);
             return;
           }
           
+          // Cerrar modal y limpiar formulario
           setShowDocumentoForm(false);
           setEditingDocumento(null);
           setDocumentoFormData({
@@ -195,7 +252,12 @@ export default function AdminPanel() {
             fecha: new Date(),
             disponible: true,
           });
-          mutateDocumentos();
+          
+          // Actualizar los datos con un pequeño delay para asegurar que el servidor procese el archivo
+          setTimeout(() => {
+            mutateDocumentos();
+          }, 500);
+          
           setResponseError(null);
         }
       }
@@ -204,6 +266,8 @@ export default function AdminPanel() {
       setResponseError(
         (error as any)?.response?.data?.message || "Error guardando documento."
       );
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -211,6 +275,7 @@ export default function AdminPanel() {
   const handleMiembroSubmit = async (e: React.FormEvent, file: File | null) => {
     e.preventDefault();
     setResponseError(null);
+    setIsSubmitting(true);
     try {
       let result;
       if (editingMiembro) {
@@ -220,23 +285,28 @@ export default function AdminPanel() {
       }
       
       if (result.status === 200 || result.status === 201) {
-        if (!editingMiembro && file) {
+        // Subir imagen si se seleccionó un archivo (tanto para crear como para editar)
+        if (file) {
           try {
             const formDataImg = new FormData();
             formDataImg.append("file", file);
-            await axiosInstance.post(
+            const uploadResult = await axiosInstance.post(
               `/members/${result.data._id}/upload`,
               formDataImg,
               { headers: { "Content-Type": "multipart/form-data" } }
             );
+            console.log("Imagen subida exitosamente:", uploadResult.data);
           } catch (uploadError) {
             console.error("Error uploading image:", uploadError);
             setResponseError(
               (uploadError as any)?.response?.data?.message ||
                 "Error subiendo imagen."
             );
+            return; // No continuar si hay error en la subida
           }
         }
+        
+        // Cerrar modal y limpiar formulario
         setShowMiembroForm(false);
         setEditingMiembro(null);
         setMiembroFormData({
@@ -246,7 +316,12 @@ export default function AdminPanel() {
           email: "",
           image: "",
         });
-        mutateMiembros();
+        
+        // Actualizar los datos con un pequeño delay para asegurar que el servidor procese la imagen
+        setTimeout(() => {
+          mutateMiembros();
+        }, 500);
+        
         setResponseError(null);
       }
     } catch (error) {
@@ -254,6 +329,8 @@ export default function AdminPanel() {
       setResponseError(
         (error as any)?.response?.data?.message || "Error guardando miembro."
       );
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -444,6 +521,7 @@ export default function AdminPanel() {
           }}
           onSubmit={handleEventSubmit}
           responseError={responseError}
+          isSubmitting={isSubmitting}
         />
       )}
 
@@ -459,6 +537,7 @@ export default function AdminPanel() {
           }}
           onSubmit={handleDocumentoSubmit}
           responseError={responseError}
+          isSubmitting={isSubmitting}
         />
       )}
 
@@ -474,6 +553,7 @@ export default function AdminPanel() {
           }}
           onSubmit={handleMiembroSubmit}
           responseError={responseError}
+          isSubmitting={isSubmitting}
         />
       )}
     </AdminLayout>

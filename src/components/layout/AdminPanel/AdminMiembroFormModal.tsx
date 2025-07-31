@@ -9,6 +9,7 @@ interface AdminMiembroFormModalProps {
   onClose: () => void;
   onSubmit: (e: React.FormEvent, file: File | null) => void;
   responseError: string | null;
+  isSubmitting?: boolean;
 }
 
 export default function AdminMiembroFormModal({
@@ -18,6 +19,7 @@ export default function AdminMiembroFormModal({
   onClose,
   onSubmit,
   responseError,
+  isSubmitting = false,
 }: AdminMiembroFormModalProps) {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
@@ -175,9 +177,14 @@ export default function AdminMiembroFormModal({
               </button>
               <button
                 type="submit"
-                className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200"
+                disabled={isSubmitting}
+                className={`px-6 py-3 rounded-lg transition-colors duration-200 ${
+                  isSubmitting 
+                    ? "bg-gray-400 cursor-not-allowed" 
+                    : "bg-blue-600 hover:bg-blue-700"
+                } text-white`}
               >
-                {editingMiembro ? "Actualizar" : "Crear"} Miembro
+                {isSubmitting ? "Guardando..." : (editingMiembro ? "Actualizar" : "Crear") + " Miembro"}
               </button>
             </div>
           </form>

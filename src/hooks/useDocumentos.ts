@@ -7,5 +7,9 @@ import { fetcher } from "../services/fetcher";
  * desde el endpoint "/documentos".
  */
 export function useDocumentos() {
-  return useSWR<Documento[]>("/documentos", fetcher);
+  return useSWR<Documento[]>("/documentos", fetcher, {
+    revalidateOnFocus: false,
+    revalidateOnReconnect: true,
+    refreshInterval: 0,
+  });
 } 

@@ -13,6 +13,7 @@ interface AdminEventFormModalProps {
   onSubmit: (e: React.FormEvent, file: File | null) => void;
   /** Error message from server response */
   responseError?: string | null;
+  isSubmitting?: boolean;
 }
 
 export default function AdminEventFormModal({
@@ -22,6 +23,7 @@ export default function AdminEventFormModal({
   onClose,
   onSubmit,
   responseError,
+  isSubmitting = false,
 }: AdminEventFormModalProps) {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -278,9 +280,14 @@ export default function AdminEventFormModal({
               </button>
               <button
                 type="submit"
-                className="px-6 py-3 cursor-pointer bg-feuce-primary text-white rounded-xl hover:bg-blue-800 transition-all duration-200 font-medium shadow-lg"
+                disabled={isSubmitting}
+                className={`px-6 py-3 rounded-xl transition-all duration-200 font-medium shadow-lg ${
+                  isSubmitting 
+                    ? "bg-gray-400 cursor-not-allowed" 
+                    : "bg-feuce-primary hover:bg-blue-800 cursor-pointer"
+                } text-white`}
               >
-                {editingEvento ? "Actualizar" : "Crear"} Evento
+                {isSubmitting ? "Guardando..." : (editingEvento ? "Actualizar" : "Crear") + " Evento"}
               </button>
             </div>
           </form>

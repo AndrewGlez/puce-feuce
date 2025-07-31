@@ -37,12 +37,6 @@ const EventosSchema = new mongoose.Schema<Eventos>(
     fecha_inicio: {
       type: Date,
       required: true,
-      validate: {
-        validator: function (date: Date) {
-          return date >= new Date();
-        },
-        message: "La fecha de inicio debe estar en el futuro",
-      },
     },
     fecha_fin: {
       type: Date,
