@@ -78,4 +78,14 @@ export class UsuariosService {
       throw error;
     }
   }
+
+  public async getUserIdByEmail(correo: string): Promise<string | null> {
+    try {
+      const user = await UsuarioModel.findOne({ correo }).exec();
+      return user ? user._id.toString() : null;
+    } catch (error) {
+      console.error("Error fetching user by email:", error);
+      throw error;
+    }
+  }
 }

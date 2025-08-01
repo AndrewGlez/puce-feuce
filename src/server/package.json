@@ -1,5 +1,11 @@
 {
     "name": "puce-feuce-server",
     "type": "commonjs",
-    "main": "./index.ts"
+    "main": "./index.ts",
+    "dependencies": {
+        "jsonwebtoken": "^9.0.0"
+    },
+    "devDependencies": {
+        "@types/jsonwebtoken": "^9.0.0"
+    }
 }

@@ -1,4 +1,5 @@
-import { Routes, Route } from "react-router";
+import { Routes, Route, Navigate } from "react-router-dom";
+import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import AppLayout from "./layout/AppLayout";
 import MiembrosPage from "./pages/MiembrosPage";
@@ -9,9 +10,16 @@ import ImpresionesPage from "./pages/ImpresionesPage";
 import AdminPanel from "./pages/AdminPanel";
 
 function MainRouter() {
+  const isAuthenticated = Boolean(localStorage.getItem("token"));
   return (
     <Routes>
-      <Route path="admin" element={<AdminPanel />} />
+      <Route path="login" element={<LoginPage />} />
+      <Route
+        path="admin"
+        element={
+          isAuthenticated ? <AdminPanel /> : <Navigate to="/login" replace />
+        }
+      />
 
       <Route path="/" element={<AppLayout />}>
         <Route index element={<HomePage />} />

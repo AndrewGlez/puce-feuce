@@ -17,6 +17,14 @@ export default function AdminSidebar({
   activeTab,
   setActiveTab,
 }: AdminSidebarProps) {
+  function handleLogout(e: React.MouseEvent<HTMLButtonElement>): void {
+    e.preventDefault();
+    // Clear token from cookies
+    document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    // Redirect to login page
+    window.location.href = "/login";
+  }
+
   return (
     <div className="w-80 bg-feuce-primary text-white flex flex-col">
       {/* Logo */}
@@ -131,7 +139,10 @@ export default function AdminSidebar({
 
       {/* Logout */}
       <div className="p-6 border-t border-gray-700">
-        <button className="w-full flex items-center justify-center px-6 py-4 bg-gray-600 text-white rounded-xl hover:bg-gray-700 transition-all duration-200 shadow-lg">
+        <button
+          onClick={handleLogout}
+          className="w-full cursor-pointer flex items-center justify-center px-6 py-4 bg-gray-600 text-white rounded-xl hover:bg-gray-700 transition-all duration-200 shadow-lg"
+        >
           <IconLogout className="w-6 h-6 mr-3" />
           <span className="font-medium text-lg">Cerrar Sesión</span>
         </button>
