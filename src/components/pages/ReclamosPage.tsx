@@ -1,12 +1,8 @@
 import AcademicIcon from "../../assets/academic-icon";
-import Button from "../ui/Button";
 import { LogoPlaceholder2 } from "../../assets";
-import { useState } from "react";
+import QRReclamos from "../../assets/QR_Reclamos_Impresiones.svg";
 
 export default function ReclamosPage() {
-  const [selectedType, setSelectedType] = useState<string | null>(null);
-  const [message, setMessage] = useState("");
-
   return (
     <div className="min-h-screen bg-[#f7fafd] flex flex-col items-center py-10 px-2 font-geologica">
       <h1 className="text-3xl md:text-4xl font-bold text-feuce-primary mb-8 text-center">
@@ -62,10 +58,10 @@ export default function ReclamosPage() {
             </ul>
           </div>
         </div>
-        {/* Chat UI */}
+        {/* Chat UI con QR */}
         <div className="flex-1 bg-[#eaf3f9] rounded-xl p-6 shadow-lg flex flex-col min-w-[320px] max-w-[600px]">
           <div className="bg-[#eaf3f9] rounded-lg p-4 mb-4">
-            <div className="flex items-start gap-2 mb-2">
+            <div className="flex items-start gap-2 mb-4">
               <div className="bg-feuce-primary rounded-full p-2 flex items-center justify-center">
                 <img
                   className="w-6 h-6"
@@ -80,101 +76,28 @@ export default function ReclamosPage() {
                 </p>
               </div>
             </div>
-            <div className="flex items-start gap-2">
-              <div className="bg-feuce-primary rounded-full p-2 flex items-center justify-center">
-                <img
-                  className="w-6 h-6"
-                  src={LogoPlaceholder2}
-                  alt="FEUCE Logo"
-                />
+            {/* Código QR de WhatsApp */}
+            <div className="flex flex-col items-center justify-center bg-white rounded-lg p-6 border-2 border-dashed border-gray-300">
+              <div className="w-32 h-32 flex items-center justify-center mb-4">
+                <img src={QRReclamos} alt="Código QR para WhatsApp" className="w-full h-full" />
               </div>
-              <div className="flex-1">
-                <div className="mb-1 font-semibold text-feuce-primary">
-                  Selecciona el tipo de reclamo o sugerencia que deseas
-                  realizar:
+              <div className="text-center">
+                <div className="text-lg font-semibold text-feuce-primary mb-2">
+                  Escanea para contactar por WhatsApp
                 </div>
-                <div className="flex flex-col gap-2 mt-2">
-                  <Button
-                    className={`justify-start px-4 text-left font-medium border-2 ${
-                      selectedType === "academico"
-                        ? "bg-[#eaf3f9] border-[#0a2540] text-feuce-primary"
-                        : "bg-white border-[#d9d9d9] text-feuce-primary hover:bg-[#f2f6fa]"
-                    }`}
-                    onClick={() => setSelectedType("academico")}
-                  >
-                    <span className="flex items-center gap-2">
-                      <AcademicIcon className="w-5 h-5" /> Académico
-                    </span>
-                  </Button>
-                  <Button
-                    className={`justify-start px-4 text-left font-medium border-2 ${
-                      selectedType === "administrativo"
-                        ? "bg-[#eaf3f9] border-[#1e7e34] text-[#1e7e34]"
-                        : "bg-white border-[#d9d9d9] text-[#1e7e34] hover:bg-[#f2f6fa]"
-                    }`}
-                    onClick={() => setSelectedType("administrativo")}
-                  >
-                    <span className="flex items-center gap-2">
-                      <svg
-                        className="w-5 h-5"
-                        fill="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10z" />
-                      </svg>
-                      Administrativo
-                    </span>
-                  </Button>
-                  <Button
-                    className={`justify-start px-4 text-left font-medium border-2 ${
-                      selectedType === "sugerencia"
-                        ? "bg-[#f6e9fa] border-[#a020f0] text-[#a020f0]"
-                        : "bg-white border-[#d9d9d9] text-[#a020f0] hover:bg-[#f6e9fa]"
-                    }`}
-                    onClick={() => setSelectedType("sugerencia")}
-                  >
-                    <span className="flex items-center gap-2">
-                      <svg
-                        className="w-5 h-5"
-                        fill="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4l4 4 4-4h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z" />
-                      </svg>
-                      Sugerencia
-                    </span>
-                  </Button>
+                <div className="text-sm text-gray-600 mb-3">
+                  Envía tus reclamos, sugerencias o inquietudes de forma anónima
+                </div>
+                <div className="flex items-center justify-center gap-2 text-sm text-green-600 font-medium">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+                  </svg>
+                  WhatsApp disponible 24/7
                 </div>
               </div>
             </div>
           </div>
-          {/* Input de mensaje */}
-          <div className="flex items-end gap-2 mt-auto">
-            <input
-              type="text"
-              className="flex-1 border border-[#d9d9d9] rounded-lg px-4 py-2 text-feuce-primary focus:outline-none focus:ring-2 focus:ring-[#0a2540] bg-white"
-              placeholder="Escribe tu mensaje aquí..."
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              disabled={!selectedType}
-            />
-            <button
-              className="bg-feuce-primary rounded-full p-3 flex items-center justify-center text-white disabled:opacity-50"
-              disabled
-              tabIndex={-1}
-            >
-              <svg
-                width="22"
-                height="22"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-              >
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </button>
-          </div>
+          {/* Información adicional */}
           <div className="text-xs text-gray-400 mt-2 text-center">
             Tu identidad permanecerá anónima. Nos comprometemos a atender tu
             caso con la mayor discreción.
