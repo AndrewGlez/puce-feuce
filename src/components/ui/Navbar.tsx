@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { IconMenu, IconSettings, IconUser } from "@tabler/icons-react";
+import { IconMenu, IconUser } from "@tabler/icons-react";
 import { useNavigate } from "react-router";
 
 export default function Navbar() {

@@ -1,7 +1,6 @@
 import { IconMoodSad } from "@tabler/icons-react";
 import { useEventos } from "../../../hooks/useEventos";
 import EventsSkeleton from "../../ui/EventsSkeleton";
-import { API_URL } from "../../../config/apiUrl";
 
 export default function AllEventsSection() {
   const { data, isLoading } = useEventos();
@@ -36,7 +35,7 @@ export default function AllEventsSection() {
             className="flex flex-col w-md bg-white rounded-2xl overflow-hidden flex-1 shadow-[0_8px_24px_0_rgba(44,62,80,0.10),0_16px_40px_0_rgba(44,62,80,0.13)]"
           >
             <img
-              src={event.imagen ? `http://localhost:3000${event.imagen}` : undefined}
+              src={event.imagen ? `${API_URL}${event.imagen}` : undefined}
               alt={event.titulo}
               className="h-56 object-cover"
             />

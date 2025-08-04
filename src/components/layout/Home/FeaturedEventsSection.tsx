@@ -2,10 +2,6 @@ import { useNavigate } from "react-router";
 import { useEventos } from "../../../hooks/useEventos";
 import EventsSkeleton from "../../ui/EventsSkeleton";
 import { IconMoodSad } from "@tabler/icons-react";
-import { API_URL } from "../../../config/apiUrl";
-
-// Events are fetched via SWR hook useEventos
-
 interface FeaturedEventsSectionProps {
   maxEvents?: number;
 }

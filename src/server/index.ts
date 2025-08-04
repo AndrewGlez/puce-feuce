@@ -11,6 +11,7 @@ import morgan from "morgan";
 import cors from "cors";
 import { MongooseError } from "mongoose";
 import FilesService from "./service/FilesService";
+import QrCodesController from "./controllers/QrCodesController";
 import { UsuariosService } from "./service/UsuarioService";
 
 // Load environment variables
@@ -50,6 +51,9 @@ app.post("/login", async (req, res) => {
 
 // Registrar las rutas estáticas para servir archivos
 app.use(FilesService);
+
+// Registrar las rutas de códigos QR
+app.use("/qrcodes", QrCodesController);
 
 const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
   if (err instanceof ValidateError) {

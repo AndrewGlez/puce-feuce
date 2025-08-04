@@ -3,9 +3,11 @@ import React, { useState } from "react";
 import type { Eventos } from "../../types/Eventos";
 import type { Documento } from "../../types/Documentos";
 import type { Miembro } from "../../types/Miembros";
+import type { QrCode } from "../../types/QrCode";
 import { useEventos } from "../../hooks/useEventos";
 import { useDocumentos } from "../../hooks/useDocumentos";
 import { useMiembros } from "../../hooks/useMiembros";
+import { useQrCodes } from "../../hooks/useQrCodes";
 import AdminLayout from "../layout/AdminPanel/AdminLayout";
 import AdminEventsSection from "../layout/AdminPanel/AdminEventsSection";
 import AdminEventFormModal from "../layout/AdminPanel/AdminEventFormModal";
@@ -13,6 +15,8 @@ import AdminDocumentosSection from "../layout/AdminPanel/AdminDocumentosSection"
 import AdminDocumentoFormModal from "../layout/AdminPanel/AdminDocumentoFormModal";
 import AdminMiembrosSection from "../layout/AdminPanel/AdminMiembrosSection";
 import AdminMiembroFormModal from "../layout/AdminPanel/AdminMiembroFormModal";
+import AdminQrCodesSection from "../layout/AdminPanel/AdminQrCodesSection";
+import AdminQrCodeFormModal from "../layout/AdminPanel/AdminQrCodeFormModal";
 import { axiosInstance } from "../../services/fetcher";
 
 export default function AdminPanel() {
@@ -20,7 +24,8 @@ export default function AdminPanel() {
   const { data: eventos = [], mutate: mutateEventos } = useEventos();
   const { data: documentos = [], mutate: mutateDocumentos } = useDocumentos();
   const { data: miembros = [], mutate: mutateMiembros } = useMiembros();
-  
+  const { data: qrCodes = [], mutate: mutateQrCodes } = useQrCodes();
+
   // Estados para eventos
   const [showEventForm, setShowEventForm] = useState(false);
   const [editingEvento, setEditingEvento] = useState<Eventos | null>(null);
@@ -34,18 +39,22 @@ export default function AdminPanel() {
     ubicacion: "",
     estado: "Inscripciones Abiertas",
   });
-  
+
   // Estados para documentos
   const [showDocumentoForm, setShowDocumentoForm] = useState(false);
-  const [editingDocumento, setEditingDocumento] = useState<Documento | null>(null);
-  const [documentoFormData, setDocumentoFormData] = useState<Partial<Documento>>({
+  const [editingDocumento, setEditingDocumento] = useState<Documento | null>(
+    null
+  );
+  const [documentoFormData, setDocumentoFormData] = useState<
+    Partial<Documento>
+  >({
     nombre: "",
     categoria: "",
     archivo: "",
     fecha: new Date(),
     disponible: true,
   });
-  
+
   // Estados para miembros
   const [showMiembroForm, setShowMiembroForm] = useState(false);
   const [editingMiembro, setEditingMiembro] = useState<Miembro | null>(null);
@@ -56,7 +65,16 @@ export default function AdminPanel() {
     email: "",
     image: "",
   });
-  
+
+  // Estados para códigos QR
+  const [showQrCodeForm, setShowQrCodeForm] = useState(false);
+  const [editingQrCode, setEditingQrCode] = useState<QrCode | null>(null);
+  const [qrCodeFormData, setQrCodeFormData] = useState<Partial<QrCode>>({
+    nombre: "",
+    descripcion: "",
+    activo: true,
+  });
+
   const [responseError, setResponseError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -87,7 +105,10 @@ export default function AdminPanel() {
               formDataImg,
               { headers: { "Content-Type": "multipart/form-data" } }
             );
-            console.log("Imagen de evento subida exitosamente:", uploadResult.data);
+            console.log(
+              "Imagen de evento subida exitosamente:",
+              uploadResult.data
+            );
           } catch (uploadError) {
             console.error("Error uploading image:", uploadError);
             setResponseError(
@@ -122,12 +143,12 @@ export default function AdminPanel() {
           ubicacion: "",
           estado: "Inscripciones Abiertas",
         });
-        
+
         // Actualizar los datos con un pequeño delay para asegurar que el servidor procese la imagen
         setTimeout(() => {
           mutateEventos();
         }, 500);
-        
+
         setResponseError(null);
       }
     } catch (error) {
@@ -141,17 +162,22 @@ export default function AdminPanel() {
   };
 
   // Handlers para documentos
-  const handleDocumentoSubmit = async (e: React.FormEvent, file: File | null) => {
+  const handleDocumentoSubmit = async (
+    e: React.FormEvent,
+    file: File | null
+  ) => {
     e.preventDefault();
     setResponseError(null);
     setIsSubmitting(true);
-    
+
     if (!editingDocumento && !file) {
-      setResponseError("Debe seleccionar un archivo para crear un nuevo documento.");
+      setResponseError(
+        "Debe seleccionar un archivo para crear un nuevo documento."
+      );
       setIsSubmitting(false);
       return;
     }
-    
+
     try {
       if (editingDocumento) {
         // Actualizar documento existente
@@ -159,9 +185,12 @@ export default function AdminPanel() {
           ...documentoFormData,
           fecha: (documentoFormData.fecha as Date).toISOString(),
         };
-        
-        const result = await axiosInstance.put(`/documentos/${editingDocumento._id}`, payload);
-        
+
+        const result = await axiosInstance.put(
+          `/documentos/${editingDocumento._id}`,
+          payload
+        );
+
         if (result.status === 200) {
           // Subir archivo si se seleccionó uno nuevo
           if (file) {
@@ -173,7 +202,10 @@ export default function AdminPanel() {
                 formDataFile,
                 { headers: { "Content-Type": "multipart/form-data" } }
               );
-              console.log("Archivo de documento subido exitosamente:", uploadResult.data);
+              console.log(
+                "Archivo de documento subido exitosamente:",
+                uploadResult.data
+              );
             } catch (uploadError) {
               console.error("Error uploading file:", uploadError);
               setResponseError(
@@ -184,7 +216,7 @@ export default function AdminPanel() {
               return;
             }
           }
-          
+
           // Cerrar modal y limpiar formulario
           setShowDocumentoForm(false);
           setEditingDocumento(null);
@@ -195,12 +227,12 @@ export default function AdminPanel() {
             fecha: new Date(),
             disponible: true,
           });
-          
+
           // Actualizar los datos con un pequeño delay para asegurar que el servidor procese el archivo
           setTimeout(() => {
             mutateDocumentos();
           }, 500);
-          
+
           setResponseError(null);
         }
       } else {
@@ -210,7 +242,7 @@ export default function AdminPanel() {
           setIsSubmitting(false);
           return;
         }
-        
+
         // Crear un documento temporal con un nombre de archivo
         const tempFileName = `temp_${Date.now()}_${file.name}`;
         const payload = {
@@ -218,9 +250,9 @@ export default function AdminPanel() {
           archivo: tempFileName,
           fecha: (documentoFormData.fecha as Date).toISOString(),
         };
-        
+
         const result = await axiosInstance.post("/documentos", payload);
-        
+
         if (result.status === 201) {
           // Ahora subir el archivo real
           try {
@@ -231,7 +263,10 @@ export default function AdminPanel() {
               formDataFile,
               { headers: { "Content-Type": "multipart/form-data" } }
             );
-            console.log("Archivo de documento subido exitosamente:", uploadResult.data);
+            console.log(
+              "Archivo de documento subido exitosamente:",
+              uploadResult.data
+            );
           } catch (uploadError) {
             console.error("Error uploading file:", uploadError);
             setResponseError(
@@ -241,7 +276,7 @@ export default function AdminPanel() {
             setIsSubmitting(false);
             return;
           }
-          
+
           // Cerrar modal y limpiar formulario
           setShowDocumentoForm(false);
           setEditingDocumento(null);
@@ -252,12 +287,12 @@ export default function AdminPanel() {
             fecha: new Date(),
             disponible: true,
           });
-          
+
           // Actualizar los datos con un pequeño delay para asegurar que el servidor procese el archivo
           setTimeout(() => {
             mutateDocumentos();
           }, 500);
-          
+
           setResponseError(null);
         }
       }
@@ -279,11 +314,14 @@ export default function AdminPanel() {
     try {
       let result;
       if (editingMiembro) {
-        result = await axiosInstance.put(`/miembros/${editingMiembro._id}`, miembroFormData);
+        result = await axiosInstance.put(
+          `/miembros/${editingMiembro._id}`,
+          miembroFormData
+        );
       } else {
         result = await axiosInstance.post("/miembros", miembroFormData);
       }
-      
+
       if (result.status === 200 || result.status === 201) {
         // Subir imagen si se seleccionó un archivo (tanto para crear como para editar)
         if (file) {
@@ -305,7 +343,7 @@ export default function AdminPanel() {
             return; // No continuar si hay error en la subida
           }
         }
-        
+
         // Cerrar modal y limpiar formulario
         setShowMiembroForm(false);
         setEditingMiembro(null);
@@ -316,12 +354,12 @@ export default function AdminPanel() {
           email: "",
           image: "",
         });
-        
+
         // Actualizar los datos con un pequeño delay para asegurar que el servidor procese la imagen
         setTimeout(() => {
           mutateMiembros();
         }, 500);
-        
+
         setResponseError(null);
       }
     } catch (error) {
@@ -331,6 +369,109 @@ export default function AdminPanel() {
       );
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  // Handlers para códigos QR
+  const handleQrCodeSubmit = async (e: React.FormEvent, file: File | null) => {
+    e.preventDefault();
+    setResponseError(null);
+    setIsSubmitting(true);
+    try {
+      let result;
+      if (editingQrCode) {
+        result = await axiosInstance.put(
+          `/qrcodes/${editingQrCode._id}`,
+          qrCodeFormData
+        );
+      } else {
+        result = await axiosInstance.post("/qrcodes", qrCodeFormData);
+      }
+
+      if (result.status === 200 || result.status === 201) {
+        // Subir imagen si se seleccionó un archivo (tanto para crear como para editar)
+        if (file) {
+          try {
+            const formDataImg = new FormData();
+            formDataImg.append("file", file);
+            const uploadResult = await axiosInstance.post(
+              `/qrcodes/${result.data._id}/upload`,
+              formDataImg,
+              { headers: { "Content-Type": "multipart/form-data" } }
+            );
+            console.log(
+              "Imagen de código QR subida exitosamente:",
+              uploadResult.data
+            );
+          } catch (uploadError) {
+            console.error("Error uploading QR image:", uploadError);
+            setResponseError(
+              (uploadError as any)?.response?.data?.message ||
+                "Error subiendo imagen del código QR."
+            );
+            return; // No continuar si hay error en la subida
+          }
+        }
+
+        // Cerrar modal y limpiar formulario
+        setShowQrCodeForm(false);
+        setEditingQrCode(null);
+        setQrCodeFormData({
+          nombre: "",
+          descripcion: "",
+          activo: true,
+        });
+
+        // Actualizar los datos con un pequeño delay para asegurar que el servidor procese la imagen
+        setTimeout(() => {
+          mutateQrCodes();
+        }, 500);
+
+        setResponseError(null);
+      }
+    } catch (error) {
+      console.error("Error saving QR code:", error);
+      setResponseError(
+        (error as any)?.response?.data?.message || "Error guardando código QR."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleQrCodeEdit = (qrCode: QrCode) => {
+    setEditingQrCode(qrCode);
+    setQrCodeFormData({
+      nombre: qrCode.nombre,
+      descripcion: qrCode.descripcion,
+      activo: qrCode.activo,
+    });
+    setShowQrCodeForm(true);
+  };
+
+  const handleQrCodeDelete = async (id: string) => {
+    if (
+      window.confirm("¿Estás seguro de que quieres eliminar este código QR?")
+    ) {
+      try {
+        const res = await axiosInstance.delete(`/qrcodes/${id}`);
+        if (res.status === 200) {
+          mutateQrCodes();
+        }
+      } catch (error) {
+        console.error("Error deleting QR code:", error);
+      }
+    }
+  };
+
+  const handleQrCodeToggleStatus = async (id: string) => {
+    try {
+      const res = await axiosInstance.patch(`/qrcodes/${id}/toggle`);
+      if (res.status === 200) {
+        mutateQrCodes();
+      }
+    } catch (error) {
+      console.error("Error toggling QR code status:", error);
     }
   };
 
@@ -379,7 +520,9 @@ export default function AdminPanel() {
   };
 
   const handleDocumentoDelete = async (id: string) => {
-    if (window.confirm("¿Estás seguro de que quieres eliminar este documento?")) {
+    if (
+      window.confirm("¿Estás seguro de que quieres eliminar este documento?")
+    ) {
       try {
         const res = await axiosInstance.delete(`/documentos/${id}`);
         if (res.status === 200) {
@@ -498,14 +641,22 @@ export default function AdminPanel() {
         )}
 
         {activeTab === "codigos" && (
-          <div className="bg-white rounded-2xl shadow-lg p-8">
-            <h2 className="text-2xl font-bold text-gray-800 mb-6">
-              Gestión de Códigos QR
-            </h2>
-            <p className="text-gray-600 text-lg">
-              Panel de códigos QR en desarrollo...
-            </p>
-          </div>
+          <AdminQrCodesSection
+            qrCodes={qrCodes}
+            onNew={() => {
+              setEditingQrCode(null);
+              setQrCodeFormData({
+                nombre: "",
+                descripcion: "",
+                activo: true,
+              });
+              setShowQrCodeForm(true);
+            }}
+            onEdit={handleQrCodeEdit}
+            onDelete={handleQrCodeDelete}
+            onToggleStatus={handleQrCodeToggleStatus}
+            formatDate={formatDate}
+          />
         )}
       </main>
 
@@ -552,6 +703,22 @@ export default function AdminPanel() {
             setResponseError(null);
           }}
           onSubmit={handleMiembroSubmit}
+          responseError={responseError}
+          isSubmitting={isSubmitting}
+        />
+      )}
+
+      {/* QR Code Form Modal */}
+      {showQrCodeForm && (
+        <AdminQrCodeFormModal
+          formData={qrCodeFormData}
+          setFormData={setQrCodeFormData}
+          editingQrCode={editingQrCode}
+          onClose={() => {
+            setShowQrCodeForm(false);
+            setResponseError(null);
+          }}
+          onSubmit={handleQrCodeSubmit}
           responseError={responseError}
           isSubmitting={isSubmitting}
         />

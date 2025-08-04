@@ -1,6 +1,6 @@
 import React from "react";
 import type { Documento } from "../../../types/Documentos";
-import { IconEye, IconTrash, IconEdit } from "@tabler/icons-react";
+import { IconTrash, IconEdit } from "@tabler/icons-react";
 
 interface AdminDocumentosSectionProps {
   documentos: Documento[];
@@ -20,9 +20,9 @@ export default function AdminDocumentosSection({
   const [filterCategory, setFilterCategory] = React.useState("Todas");
 
   const categories = ["Todas", "Reglamento", "Instructivo", "Manual", "Otros"];
-  
-  const filteredDocumentos = documentos.filter(doc => 
-    filterCategory === "Todas" || doc.categoria === filterCategory
+
+  const filteredDocumentos = documentos.filter(
+    (doc) => filterCategory === "Todas" || doc.categoria === filterCategory
   );
 
   return (
@@ -49,7 +49,7 @@ export default function AdminDocumentosSection({
         </div>
         <button
           onClick={onNew}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200 flex items-center space-x-2"
+          className="bg-feuce-primary hover:bg-blue-700 cursor-pointer text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200 flex items-center space-x-2"
         >
           <span>+</span>
           <span>Subir documento</span>
@@ -118,7 +118,7 @@ export default function AdminDocumentosSection({
             ))}
           </tbody>
         </table>
-        
+
         {filteredDocumentos.length === 0 && (
           <div className="text-center py-8 text-gray-500">
             No hay documentos disponibles
@@ -127,4 +127,4 @@ export default function AdminDocumentosSection({
       </div>
     </div>
   );
-} 
+}

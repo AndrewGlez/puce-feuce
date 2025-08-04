@@ -2,6 +2,7 @@ import FileIcon from "../../assets/FileIcon";
 import DownloadIcon from "../../assets/DownloadIcon";
 import { useDocumentos } from "../../hooks/useDocumentos";
 import { LoadingSpinner } from "../ui";
+import { API_URL } from "../../config/apiUrl";
 
 export default function DocumentosPage() {
   const { data: documentos = [], error, isLoading } = useDocumentos();
@@ -76,7 +77,10 @@ export default function DocumentosPage() {
                   className="flex items-center bg-white border border-neutral-300 rounded-lg p-4 gap-4"
                 >
                   <div>
-                    <FileIcon color={getColorForCategory(doc.categoria)} size={32} />
+                    <FileIcon
+                      color={getColorForCategory(doc.categoria)}
+                      size={32}
+                    />
                   </div>
                   <div className="flex-1">
                     <div className="font-normal text-feuce-primary">
@@ -94,7 +98,7 @@ export default function DocumentosPage() {
                   </div>
                   {doc.disponible && doc.archivo ? (
                     <a
-                      href={`http://localhost:3000${doc.archivo}`}
+                      href={`${API_URL}${doc.archivo}`}
                       download
                       className="ml-2 hover:opacity-80 transition-all"
                       target="_blank"

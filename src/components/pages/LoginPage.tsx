@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { postFetcher } from "../../services/fetcher";
-import { LogoPlaceholder, LogoPlaceholder2 } from "../../assets";
+import { LogoPlaceholder2 } from "../../assets";
 
 export default function LoginPage() {
   const [correo, setCorreo] = useState("");

@@ -35,7 +35,7 @@ const usuarioSchema = new mongoose.Schema<Usuario>(
 );
 
 // Agregar un índice único para el correo electrónico
-usuarioSchema.index({ correo: 1 });
+// usuarioSchema.index({ correo: 1 });
 
 const UsuarioModel = mongoose.model<Usuario>("Usuario", usuarioSchema);
 

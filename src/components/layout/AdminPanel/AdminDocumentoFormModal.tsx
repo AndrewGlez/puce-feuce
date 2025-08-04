@@ -169,7 +169,7 @@ export default function AdminDocumentoFormModal({
                 className={`px-6 py-3 rounded-lg transition-colors duration-200 ${
                   isSubmitting 
                     ? "bg-gray-400 cursor-not-allowed" 
-                    : "bg-blue-600 hover:bg-blue-700"
+                    : "bg-feuce-primary hover:bg-blue-700"
                 } text-white`}
               >
                 {isSubmitting ? "Guardando..." : (editingDocumento ? "Actualizar" : "Crear") + " Documento"}

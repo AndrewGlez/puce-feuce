@@ -1,6 +1,7 @@
 import React from "react";
 import type { Miembro } from "../../../types/Miembros";
 import { IconEdit, IconTrash, IconUser } from "@tabler/icons-react";
+import { API_URL } from "../../../config/apiUrl";
 
 interface AdminMiembrosSectionProps {
   miembros: Miembro[];
@@ -26,7 +27,7 @@ export default function AdminMiembrosSection({
         </div>
         <button
           onClick={onNew}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200 flex items-center space-x-2"
+          className="bg-feuce-primary cursor-pointer hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200 flex items-center space-x-2"
         >
           <span>+</span>
           <span>Nuevo miembro</span>
@@ -64,7 +65,7 @@ export default function AdminMiembrosSection({
                   <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
                     {miembro.image ? (
                       <img
-                        src={`http://localhost:3000${miembro.image}`}
+                        src={`${API_URL}${miembro.image}`}
                         alt={miembro.name}
                         className="w-10 h-10 rounded-full object-cover"
                       />
@@ -78,9 +79,7 @@ export default function AdminMiembrosSection({
                     {miembro.name}
                   </div>
                 </td>
-                <td className="py-4 px-4 text-gray-600">
-                  {miembro.role}
-                </td>
+                <td className="py-4 px-4 text-gray-600">{miembro.role}</td>
                 <td className="py-4 px-4">
                   <a
                     href={`mailto:${miembro.email}`}
@@ -111,7 +110,7 @@ export default function AdminMiembrosSection({
             ))}
           </tbody>
         </table>
-        
+
         {miembros.length === 0 && (
           <div className="text-center py-8 text-gray-500">
             No hay miembros registrados
@@ -120,4 +119,4 @@ export default function AdminMiembrosSection({
       </div>
     </div>
   );
-} 
+}

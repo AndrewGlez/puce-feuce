@@ -5,6 +5,7 @@ import path from "path";
 import EventosModel from "../models/Eventos";
 import DocumentoModel from "../models/Documentos";
 import MiembroModel from "../models/Miembro";
+import QrCodeModel from "../models/QrCode";
 
 const router = express.Router();
 
@@ -14,9 +15,10 @@ import fs from "fs";
 const uploadsDir = path.resolve(__dirname, "../files/uploads/");
 const docsDir = path.resolve(__dirname, "../files/docs/");
 const membersDir = path.resolve(__dirname, "../files/members/");
+const qrCodesDir = path.resolve(__dirname, "../files/qrcodes/");
 
 // Crear directorios si no existen
-[uploadsDir, docsDir, membersDir].forEach(dir => {
+[uploadsDir, docsDir, membersDir, qrCodesDir].forEach((dir) => {
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true });
     console.log(`Created directory: ${dir}`);
@@ -49,10 +51,7 @@ const fileFilter = (
 
 const upload = multer({ storage: storage, fileFilter });
 
-router.use(
-  "/uploads",
-  express.static(uploadsDir)
-);
+router.use("/uploads", express.static(uploadsDir));
 router.post(
   "/:eventId/upload",
   upload.single("file"),
@@ -91,11 +90,11 @@ router.post(
       console.error("Error details:", {
         eventId,
         filename: req_.file?.filename,
-        error: error instanceof Error ? error.message : error
+        error: error instanceof Error ? error.message : error,
       });
-      res.status(500).send({ 
+      res.status(500).send({
         message: "Error interno del servidor.",
-        details: error instanceof Error ? error.message : "Unknown error"
+        details: error instanceof Error ? error.message : "Unknown error",
       });
     }
   }
@@ -152,11 +151,11 @@ router.post(
       console.error("Error details:", {
         docId,
         filename: req.file?.filename,
-        error: error instanceof Error ? error.message : error
+        error: error instanceof Error ? error.message : error,
       });
-      res.status(500).send({ 
+      res.status(500).send({
         message: "Error interno del servidor.",
-        details: error instanceof Error ? error.message : "Unknown error"
+        details: error instanceof Error ? error.message : "Unknown error",
       });
     }
   }
@@ -187,7 +186,10 @@ const fileFilterMembers = (
   else cb(null, false);
 };
 
-const uploadMember = multer({ storage: storageMembers, fileFilter: fileFilterMembers });
+const uploadMember = multer({
+  storage: storageMembers,
+  fileFilter: fileFilterMembers,
+});
 
 router.use("/members", express.static(membersDir));
 router.post(
@@ -220,6 +222,72 @@ router.post(
       });
     } catch (error) {
       console.error("Error updating member with image path:", error);
+      res.status(500).send({ message: "Error interno del servidor." });
+    }
+  }
+);
+
+// Rutas para códigos QR
+const storageQrCodes = multer.diskStorage({
+  destination: function (
+    req: express.Request,
+    file: Express.Multer.File,
+    cb: (error: Error | null, destination: string) => void
+  ) {
+    cb(null, qrCodesDir);
+  },
+  filename: function (req, file, cb) {
+    const randomName =
+      Date.now() + "-" + randomUUID() + path.extname(file.originalname);
+    cb(null, randomName);
+  },
+});
+
+const fileFilterQrCodes = (
+  req: express.Request,
+  file: Express.Multer.File,
+  cb: multer.FileFilterCallback
+) => {
+  if (file.mimetype.startsWith("image/")) cb(null, true);
+  else cb(null, false);
+};
+
+const uploadQrCode = multer({
+  storage: storageQrCodes,
+  fileFilter: fileFilterQrCodes,
+});
+
+router.use("/qrcodes", express.static(qrCodesDir));
+router.post(
+  "/qrcodes/:qrCodeId/upload",
+  uploadQrCode.single("file"),
+  async (req: express.Request, res: express.Response): Promise<void> => {
+    const { qrCodeId } = req.params;
+    if (!req.file) {
+      res.status(400).send({ message: "No se subió ningún archivo." });
+      return;
+    }
+    if (!qrCodeId) {
+      res.status(400).send({ message: "Se requiere el ID del código QR." });
+      return;
+    }
+    try {
+      const updatedQrCode = await QrCodeModel.findByIdAndUpdate(
+        qrCodeId,
+        { $set: { imagen: `/qrcodes/${req.file.filename}` } },
+        { new: true, runValidators: true }
+      );
+      if (!updatedQrCode) {
+        res.status(404).send({ message: "Código QR no encontrado." });
+        return;
+      }
+      res.json({
+        message: "Imagen de código QR subida exitosamente.",
+        fileUrl: `/qrcodes/${req.file.filename}`,
+        qrCode: updatedQrCode,
+      });
+    } catch (error) {
+      console.error("Error updating QR code with image path:", error);
       res.status(500).send({ message: "Error interno del servidor." });
     }
   }

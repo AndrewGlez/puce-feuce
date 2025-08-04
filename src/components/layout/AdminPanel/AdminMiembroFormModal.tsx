@@ -30,12 +30,12 @@ export default function AdminMiembroFormModal({
 
   const roles = [
     "Presidente",
-    "Vicepresidente", 
+    "Vicepresidente",
     "Tesorero",
     "Secretario",
     "Vocal",
     "Coordinador",
-    "Miembro"
+    "Miembro",
   ];
 
   const departments = [
@@ -45,7 +45,7 @@ export default function AdminMiembroFormModal({
     "Eventos",
     "Finanzas",
     "Relaciones Públicas",
-    "Otros"
+    "Otros",
   ];
 
   return (
@@ -64,7 +64,10 @@ export default function AdminMiembroFormModal({
             </button>
           </div>
 
-          <form onSubmit={(e) => onSubmit(e, selectedFile)} className="space-y-6">
+          <form
+            onSubmit={(e) => onSubmit(e, selectedFile)}
+            className="space-y-6"
+          >
             {/* Nombre */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -179,12 +182,14 @@ export default function AdminMiembroFormModal({
                 type="submit"
                 disabled={isSubmitting}
                 className={`px-6 py-3 rounded-lg transition-colors duration-200 ${
-                  isSubmitting 
-                    ? "bg-gray-400 cursor-not-allowed" 
-                    : "bg-blue-600 hover:bg-blue-700"
+                  isSubmitting
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-feuce-primary hover:bg-blue-700"
                 } text-white`}
               >
-                {isSubmitting ? "Guardando..." : (editingMiembro ? "Actualizar" : "Crear") + " Miembro"}
+                {isSubmitting
+                  ? "Guardando..."
+                  : (editingMiembro ? "Actualizar" : "Crear") + " Miembro"}
               </button>
             </div>
           </form>
@@ -192,4 +197,4 @@ export default function AdminMiembroFormModal({
       </div>
     </div>
   );
-} 
+}

@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
+import { API_URL } from "../config/apiUrl";
 
 export const axiosInstance = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: API_URL,
 });
 // Attach JWT token to all requests
 axiosInstance.interceptors.request.use(
