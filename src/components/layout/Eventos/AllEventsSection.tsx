@@ -1,6 +1,7 @@
 import { IconMoodSad } from "@tabler/icons-react";
 import { useEventos } from "../../../hooks/useEventos";
 import EventsSkeleton from "../../ui/EventsSkeleton";
+import { API_URL } from "../../../config/apiUrl";
 
 export default function AllEventsSection() {
   const { data, isLoading } = useEventos();

@@ -16,6 +16,8 @@ export default function LoginPage() {
       const { token } = await postFetcher("/login", { correo, contraseña });
       // Set token in cookies
       document.cookie = `token=${token}; path=/`;
+      // Set to local storage
+      localStorage.setItem("token", token);
       navigate("/admin", { replace: true });
     } catch (err) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
